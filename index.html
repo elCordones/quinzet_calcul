@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>El Quinzet I5 · Càlcul Mental Adaptat</title>
+  <!-- Google Fonts: Nunito per màxima claredat i accessibilitat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-content">
+      <div class="logo-area">
+        <span class="logo-badge" aria-hidden="true">🧠</span>
+        <div class="logo-text">
+          <h1>El Quinzet</h1>
+          <p class="subtitle">Gimnàstica de càlcul mental adaptat</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <!-- Guia docent per a característiques dels nivells -->
+        <button id="teacher-guide-btn" class="icon-btn highlight-guide" aria-label="Obrir la guia docent dels nivells" title="Guia per a mestres">
+          <span class="btn-icon">🎓</span>
+          <span class="btn-label">Guia docent</span>
+        </button>
+        <!-- Control de so -->
+        <button id="sound-toggle-btn" class="icon-btn" aria-label="Activar o desactivar el so" title="Activar/desactivar so">
+          <span class="btn-icon">🔊</span>
+          <span class="btn-label">So</span>
+        </button>
+        <!-- Selector de tema -->
+        <div class="theme-selector-wrapper">
+          <button id="theme-toggle-btn" class="icon-btn" aria-label="Canviar tema clar o fosc" title="Canviar tema">
+            <span id="theme-icon" class="btn-icon">🌓</span>
+            <span id="theme-label" class="btn-label">Tema</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="app-main" class="main-container">
+    <!-- PANTALLA 1: CONFIGURACIÓ INICIAL -->
+    <section id="setup-screen" class="screen active" aria-labelledby="setup-title">
+      <div class="card setup-card">
+        <div class="card-intro">
+          <h2 id="setup-title">Prepara el teu repte</h2>
+          <p>Tria les opcions que millor s'adaptin a la teva sessió de càlcul.</p>
+          <div class="card-intro-actions">
+            <button type="button" id="open-guide-link-btn" class="btn-subtle-guide">
+              <span class="guide-icon">ℹ️</span>
+              <span>Característiques dels 6 nivells i operacions</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. Selector de Nivells Progressius (Sense estigmes d'edat) -->
+        <div class="form-group">
+          <label class="group-label">1. Tria el nivell de repte:</label>
+          <div class="levels-grid" role="radiogroup" aria-label="Nivell de càlcul">
+            <button type="button" class="level-card-btn active" data-level="1" role="radio" aria-checked="true">
+              <span class="level-tag">Nivell 1</span>
+              <span class="level-name">Iniciació</span>
+              <span class="level-scope">Sumes i restes fins a 5</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="2" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 2</span>
+              <span class="level-name">Descoberta</span>
+              <span class="level-scope">Sumes i restes fins a 10</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="3" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 3</span>
+              <span class="level-name">Consolidació</span>
+              <span class="level-scope">Nombres fins a 20</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="4" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 4</span>
+              <span class="level-name">Progrés</span>
+              <span class="level-scope">Taules de multiplicar (2 a 5)</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="5" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 5</span>
+              <span class="level-name">Avançat</span>
+              <span class="level-scope">Taules completes i divisions</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="6" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 6</span>
+              <span class="level-name">Mestre</span>
+              <span class="level-scope">Càlcul àgil amb 4 operacions</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Modalitat d'operacions dinàmica segons el nivell -->
+        <div class="form-group">
+          <label class="group-label">2. Quines operacions vols fer?</label>
+          <div id="operation-modes-container" class="button-selector-grid" role="radiogroup" aria-label="Tipus d'operació">
+            <!-- Es renderitza o actualitza per JS segons el nivell -->
+            <button type="button" class="mode-btn active" data-mode="sumes" role="radio" aria-checked="true">
+              <span class="mode-symbol">➕</span>
+              <span class="mode-text">Sumes</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="restes" role="radio" aria-checked="false">
+              <span class="mode-symbol">➖</span>
+              <span class="mode-text">Restes</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="mult" role="radio" aria-checked="false" style="display: none;">
+              <span class="mode-symbol">✖️</span>
+              <span class="mode-text">Multiplicacions</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="div" role="radio" aria-checked="false" style="display: none;">
+              <span class="mode-symbol">➗</span>
+              <span class="mode-text">Divisions</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="variat" role="radio" aria-checked="false">
+              <span class="mode-symbol">🔀</span>
+              <span class="mode-text">Variat</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Adaptacions de suport (Cronòmetre i Bastida visual) -->
+        <div class="form-group">
+          <label class="group-label">3. Adaptacions de suport (NESE):</label>
+          <div class="switches-grid">
+            <!-- Switch Cronòmetre -->
+            <label class="switch-card" for="timer-toggle">
+              <div class="switch-info">
+                <span class="switch-icon">⏱️</span>
+                <div>
+                  <span class="switch-title">Cronòmetre de 3 minuts</span>
+                  <span class="switch-desc">Desactiva'l per a treballar al teu propi ritme</span>
+                </div>
+              </div>
+              <div class="switch-control">
+                <input type="checkbox" id="timer-toggle" checked />
+                <span class="slider"></span>
+              </div>
+            </label>
+
+            <!-- Switch Bastida visual -->
+            <label class="switch-card" for="scaffold-toggle">
+              <div class="switch-info">
+                <span class="switch-icon">🔴</span>
+                <div>
+                  <span class="switch-title">Bastida visual (Punts)</span>
+                  <span class="switch-desc">Mostra punts de subitització sota les xifres</span>
+                </div>
+              </div>
+              <div class="switch-control">
+                <input type="checkbox" id="scaffold-toggle" />
+                <span class="slider"></span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Botó d'inici -->
+        <div class="action-footer">
+          <button id="start-quiz-btn" class="btn btn-primary btn-huge" type="button">
+            <span>Començar el Repte (60 operacions)</span>
+            <span class="btn-arrow">➔</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: JOC / PROVA EN CURS -->
+    <section id="quiz-screen" class="screen" aria-live="polite">
+      <div class="quiz-container">
+        <!-- Barra superior de progrés i temps -->
+        <div class="quiz-topbar">
+          <div class="progress-pill level-pill">
+            <span class="pill-icon">🎯</span>
+            <strong id="current-level-display">Nivell 1</strong>
+          </div>
+
+          <div class="progress-pill">
+            <span class="pill-icon">📝</span>
+            <span class="pill-label">Op:</span>
+            <strong id="current-op-index">1</strong>
+            <span class="pill-total">/ 60</span>
+          </div>
+
+          <!-- Cronòmetre (visualitzat si està actiu) -->
+          <div id="timer-display-container" class="timer-pill">
+            <span class="pill-icon">⏳</span>
+            <span id="timer-text" class="timer-countdown">03:00</span>
+          </div>
+
+          <!-- Botó de pausa (només visible quan hi ha cronòmetre) -->
+          <button id="pause-btn" class="btn btn-outline-warning btn-sm" type="button" title="Pausar o reprendre el temps">
+            <span id="pause-icon">⏸️</span>
+            <span id="pause-label">Pausa</span>
+          </button>
+
+          <!-- Botó d'aturada / sortida segura -->
+          <button id="end-early-btn" class="btn btn-outline-danger btn-sm" type="button" title="Finalitzar la prova ara">
+            <span>Finalitzar</span>
+          </button>
+        </div>
+
+        <!-- Barra de progrés visual -->
+        <div class="progress-track" aria-hidden="true">
+          <div id="progress-bar" class="progress-fill" style="width: 0%;"></div>
+        </div>
+
+        <!-- Targeta de l'operació matemàtica -->
+        <div class="operation-display-card">
+          <div class="equation-container">
+            <!-- Operand 1 -->
+            <div class="number-block">
+              <span id="num1" class="math-num">0</span>
+              <div id="num1-scaffold" class="dot-scaffold" aria-hidden="true"></div>
+            </div>
+
+            <!-- Signe operador -->
+            <div class="symbol-block">
+              <span id="operator" class="math-operator">+</span>
+            </div>
+
+            <!-- Operand 2 -->
+            <div class="number-block">
+              <span id="num2" class="math-num">0</span>
+              <div id="num2-scaffold" class="dot-scaffold" aria-hidden="true"></div>
+            </div>
+
+            <!-- Igual -->
+            <div class="symbol-block">
+              <span class="math-equal">=</span>
+            </div>
+
+            <!-- Interrogant -->
+            <div class="number-block mystery-block">
+              <span class="mystery-box">?</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Àrea de selecció de les 3 respostes -->
+        <div class="answers-container">
+          <p class="answers-prompt">Tria la resposta correcta:</p>
+          <div class="options-grid">
+            <button type="button" class="option-btn" data-index="0" aria-label="Opció 1">
+              <span class="option-num">-</span>
+            </button>
+            <button type="button" class="option-btn" data-index="1" aria-label="Opció 2">
+              <span class="option-num">-</span>
+            </button>
+            <button type="button" class="option-btn" data-index="2" aria-label="Opció 3">
+              <span class="option-num">-</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Capa de Pausa (Visible quan el joc està pausat) -->
+        <div id="pause-overlay" class="pause-overlay hidden">
+          <div class="pause-card">
+            <span class="pause-badge" aria-hidden="true">⏸️</span>
+            <h3>Activitat en pausa</h3>
+            <p>El cronòmetre està aturat. Respira i continua quan estiguis a punt!</p>
+            <button id="resume-btn" class="btn btn-primary btn-large" type="button">
+              <span>▶️ Reprendre el repte</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 3: RESULTATS FINALS -->
+    <section id="results-screen" class="screen" aria-labelledby="results-title">
+      <div class="card results-card">
+        <div class="results-header">
+          <div class="celebration-badge" aria-hidden="true">🌟</div>
+          <div id="results-level-badge" class="level-result-pill">Nivell 1</div>
+          <h2 id="results-title">Prova finalitzada!</h2>
+          <p id="motivational-message" class="motivational-text">Molt bona feina! Has completat l'exercici.</p>
+        </div>
+
+        <!-- Targetes de resum de dades -->
+        <div class="stats-summary-grid">
+          <div class="stat-box success-stat">
+            <span class="stat-number" id="total-hits">0</span>
+            <span class="stat-caption">Encerts</span>
+          </div>
+          <div class="stat-box answered-stat">
+            <span class="stat-number" id="total-attempted">0</span>
+            <span class="stat-caption">Operacions fetes</span>
+          </div>
+          <div class="stat-box time-stat">
+            <span class="stat-number" id="total-time-spent">00:00</span>
+            <span class="stat-caption">Temps dedicat</span>
+          </div>
+        </div>
+
+        <!-- Accions principals -->
+        <div class="results-actions-primary">
+          <button id="play-again-btn" class="btn btn-primary btn-large" type="button">
+            <span>🔄 Tornar a jugar</span>
+          </button>
+          <button id="print-results-btn" class="btn btn-secondary btn-large" type="button">
+            <span>🖨️ Imprimir / Desar informe</span>
+          </button>
+        </div>
+
+        <!-- Mòdul Acordió: Detall d'operacions (Amagat per defecte) -->
+        <div class="details-accordion-wrapper">
+          <button id="toggle-details-btn" class="accordion-header-btn" type="button" aria-expanded="false" aria-controls="details-content">
+            <span class="accordion-title">
+              <span id="accordion-icon">👁️</span>
+              <span>Consultar operacions encertades i equivocades</span>
+            </span>
+            <span id="accordion-indicator" class="accordion-badge">Mostra el detall</span>
+          </button>
+
+          <div id="details-content" class="accordion-body hidden" role="region" aria-labelledby="toggle-details-btn">
+            <div class="details-legend">
+              <span class="legend-item hit"><span class="badge-dot"></span> Encertada</span>
+              <span class="legend-item missed"><span class="badge-dot"></span> Errada</span>
+            </div>
+            <div id="operations-review-list" class="operations-grid-review">
+              <!-- Es generarà dinàmicament per JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Peu de pàgina discret d'atribució docent David Cordones (2026) -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" class="footer-badge-link" title="Llicència Creative Commons BY-SA 4.0">
+        <img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg" alt="CC BY-SA 4.0" class="footer-badge-img" />
+      </a>
+      <span class="footer-text">
+        © David Cordones · 2026 · Codi: <strong>AGPL v3</strong> · Contingut: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- MODAL: GUIA DOCENT I CARACTERÍSTIQUES DELS NIVELLS -->
+  <dialog id="teacher-guide-modal" class="modal-dialog" aria-labelledby="guide-modal-title">
+    <div class="modal-inner">
+      <div class="modal-header">
+        <div class="modal-title-area">
+          <span class="modal-badge" aria-hidden="true">🎓</span>
+          <div>
+            <h2 id="guide-modal-title">Guia Docent: Característiques dels Nivells</h2>
+            <p class="modal-subtitle">Orientacions curriculars, gestió d'operacions i atenció a la diversitat (NESE)</p>
+          </div>
+        </div>
+        <button id="close-guide-btn" class="modal-close-btn" type="button" aria-label="Tancar la guia docent">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Secció 1: Resum Pedagògic dels 6 Nivells -->
+        <section class="guide-section">
+          <h3 class="guide-section-title">📊 Correspondència i Continguts dels 6 Nivells</h3>
+          <p class="guide-section-desc">
+            Els nivells s'anomenen de manera neutra (Nivell 1 a 6) perquè l'alumnat que requereixi entrenar operacions d'un nivell previ no se senti mai assenyalat ni infantilinitzat.
+          </p>
+
+          <div class="levels-table-wrapper">
+            <table class="levels-guide-table">
+              <thead>
+                <tr>
+                  <th>Nivell a l'App</th>
+                  <th>Correspondència Docent</th>
+                  <th>Abast Matemàtic</th>
+                  <th>Operacions Disponibles</th>
+                  <th>Suport NESE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="tag-level l1">Nivell 1 · Iniciació</span></td>
+                  <td><strong>I5 / P5</strong><br><small>(Sèrie "Abans de 1r")</small></td>
+                  <td>Sumes fins a 5 (esporàdic 6). Restes de minuends 1 a 4.</td>
+                  <td>Sumes, Restes, Variat (+/-)</td>
+                  <td>Bastida visual de punts disponible</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l2">Nivell 2 · Descoberta</span></td>
+                  <td><strong>1r de Primària</strong></td>
+                  <td>Sumes i restes fins al 10 (sense creuar desena).</td>
+                  <td>Sumes, Restes, Variat (+/-)</td>
+                  <td>Bastida visual de punts disponible</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l3">Nivell 3 · Consolidació</span></td>
+                  <td><strong>2n de Primària</strong></td>
+                  <td>Sumes fins a 20 creuant desena (8+7, 9+6) i restes de desena (10-7, 9-4).</td>
+                  <td>Sumes, Restes, Variat (+/-)</td>
+                  <td>Bastida visual opcional</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l4">Nivell 4 · Progrés</span></td>
+                  <td><strong>3r de Primària</strong></td>
+                  <td>Sumes/restes ràpides i <strong>primeres taules de multiplicar (2, 3, 4 i 5)</strong>.</td>
+                  <td>Sumes, Restes, <strong>Multiplicacions</strong>, Variat</td>
+                  <td>Càlcul abstracte</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l5">Nivell 5 · Avançat</span></td>
+                  <td><strong>4t de Primària</strong></td>
+                  <td><strong>Taules completes (1..10)</strong> i <strong>divisions exactes elementals</strong> (ex: 28:7, 36:9, 72:8).</td>
+                  <td>Sumes, Restes, <strong>Multiplicacions</strong>, <strong>Divisions</strong>, Variat (totes 4)</td>
+                  <td>Agilitat mental</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l6">Nivell 6 · Mestre</span></td>
+                  <td><strong>5è i 6è de Primària</strong></td>
+                  <td>Multiplicacions per desenes (15×2, 14×2, 25×2, 11×6) i divisions amb quocients superiors (66:6, 80:8).</td>
+                  <td>Les 4 operacions combinades al complet</td>
+                  <td>Alta automatització</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Secció 2: Selector Dinàmic d'Operacions -->
+        <section class="guide-section">
+          <h3 class="guide-section-title">🔀 Com funciona el Selector Dinàmic d'Operacions?</h3>
+          <div class="guide-cards-grid">
+            <div class="guide-info-card">
+              <h4>1. Activació curricular automàtica</h4>
+              <p>
+                Els botons d'operacions s'adapten immediatament en triar el nivell:
+                a Nivells 1-3 només es mostren sumes i restes; a partir del Nivell 4 apareix la multiplicació; i a partir del Nivell 5, la divisió exacta.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>2. Auto-ajust intel·ligent anti-error</h4>
+              <p>
+                Si un docent o alumne té seleccionat un mode avançat (ex. <em>Divisions</em>) i canvia a un nivell inicial (ex. <em>Nivell 1</em>), el sistema commuta automàticament a <em>Sumes</em> sense generar inconsistències.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>3. Repartiment equilibrat del mode "Variat"</h4>
+              <p>
+                En triar el mode <em>Variat</em>, el generador barreja de manera homogènia les operacions permeses pel nivell:
+                50% sumes i 50% restes (Nivells 1-3), un terç de cada a Nivell 4, i un 25% exacte de cadascuna de les 4 operacions a Nivells 5 i 6.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>4. Adaptacions NESE integrades</h4>
+              <p>
+                • <strong>Bastida visual de punts:</strong> Disponible a nivells 1, 2 i 3 per facilitar la subitització en infants amb dificultats en el llenguatge simbòlic.<br>
+                • <strong>Cronòmetre desactivable:</strong> Permet realitzar la prova al ritme propi sense l'estrès del compte enrere de 3 minuts.<br>
+                • <strong>Neutralitat durant la tasca:</strong> Cap retroacció d'error/encert en directe per evitar el bloqueig emocional.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="modal-footer">
+        <button id="close-guide-footer-btn" class="btn btn-primary" type="button">Entès, tancar la guia</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

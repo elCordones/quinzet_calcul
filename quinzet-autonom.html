@@ -1,0 +1,3086 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>El Quinzet I5 · Càlcul Mental Adaptat</title>
+  <!-- Google Fonts: Nunito per màxima claredat i accessibilitat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+  <style>
+/* ==========================================================================
+   EL QUINZET I5 - CÀLCUL MENTAL ADAPTAT NESE
+   Full d'estils accessible, responsiu i amb suport de temes clar/fosc
+   ========================================================================== */
+
+:root {
+  /* Paleta Tema Clar (Per defecte) */
+  --font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --bg-page: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-subtle: #f8fafc;
+  --bg-card-highlight: #eff6ff;
+  
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-inverse: #ffffff;
+  
+  --border-color: #cbd5e1;
+  --border-focus: #2563eb;
+  
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
+  --primary-contrast: #ffffff;
+  
+  --success: #16a34a;
+  --success-bg: #dcfce7;
+  --success-border: #86efac;
+  
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --danger-border: #fca5a5;
+  
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  
+  --option-bg: #ffffff;
+  --option-border: #94a3b8;
+  --option-text: #0f172a;
+  --option-hover-bg: #e0e7ff;
+  --option-hover-border: #4f46e5;
+  --option-active-bg: #c7d2fe;
+  
+  --dot-color: #3b82f6;
+  --mystery-box-bg: #fef08a;
+  --mystery-box-text: #854d0e;
+  --mystery-box-border: #facc15;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 10px -1px rgba(0, 0, 0, 0.08), 0 2px 6px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+  
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+
+/* Variables per al Tema Fosc */
+[data-theme="dark"] {
+  --bg-page: #0b0f19;
+  --bg-card: #151d30;
+  --bg-card-subtle: #1e293b;
+  --bg-card-highlight: #1e3a8a33;
+  
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-inverse: #0b0f19;
+  
+  --border-color: #334155;
+  --border-focus: #60a5fa;
+  
+  --primary: #60a5fa;
+  --primary-hover: #93c5fd;
+  --primary-light: #1e3a8a;
+  --primary-contrast: #ffffff;
+  
+  --success: #4ade80;
+  --success-bg: #14532d55;
+  --success-border: #16a34a;
+  
+  --danger: #f87171;
+  --danger-bg: #7f1d1d55;
+  --danger-border: #dc2626;
+  
+  --warning: #fbbf24;
+  --warning-bg: #78350f55;
+  
+  --option-bg: #1e293b;
+  --option-border: #475569;
+  --option-text: #f8fafc;
+  --option-hover-bg: #312e81;
+  --option-hover-border: #818cf8;
+  --option-active-bg: #3730a3;
+  
+  --dot-color: #60a5fa;
+  --mystery-box-bg: #422006;
+  --mystery-box-text: #fef08a;
+  --mystery-box-border: #ca8a04;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.55);
+}
+
+/* Reseteig i base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ==========================================================================
+   CAPÇALERA (Header)
+   ========================================================================== */
+.app-header {
+  background-color: var(--bg-card);
+  border-bottom: 2px solid var(--border-color);
+  padding: 0.75rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.header-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-badge {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 900;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  letter-spacing: 0.05em;
+}
+
+.logo-text h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon-btn {
+  background-color: var(--bg-card-subtle);
+  border: 1.5px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.icon-btn:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+}
+
+.icon-btn:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   CONTENIDOR PRINCIPAL I PANTALLES
+   ========================================================================== */
+.main-container {
+  flex: 1;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.screen {
+  display: none;
+  width: 100%;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Targetes generals */
+.card {
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  box-shadow: var(--shadow-md);
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+/* ==========================================================================
+   PANTALLA 1: CONFIGURACIÓ (SETUP)
+   ========================================================================== */
+.card-intro {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.card-intro h2 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.35rem;
+}
+
+.card-intro p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1.75rem;
+}
+
+.group-label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
+}
+
+/* Graella de 6 Nivells progressius */
+.levels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.level-card-btn {
+  background-color: var(--bg-card-subtle);
+  border: 2.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  padding: 0.9rem 0.75rem;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.level-card-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.level-card-btn.active {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+[data-theme="dark"] .level-card-btn.active {
+  background-color: #1e3a8a;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px #60a5fa;
+}
+
+[data-theme="dark"] .level-card-btn.active .level-name {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .level-card-btn.active .level-scope {
+  color: #cbd5e1;
+}
+
+.level-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.04em;
+}
+
+.level-name {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.level-scope {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.25;
+}
+
+.level-result-pill {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 800;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.75rem;
+}
+
+[data-theme="dark"] .level-result-pill {
+  background-color: #1e3a8a;
+  color: #93c5fd;
+  border-color: #60a5fa;
+}
+
+.button-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.85rem;
+}
+
+.mode-btn {
+  background-color: var(--bg-card-subtle);
+  border: 2.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  padding: 1.1rem 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.mode-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.mode-btn.active {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+[data-theme="dark"] .mode-btn.active {
+  background-color: #1e3a8a;
+  border-color: #60a5fa;
+  color: #93c5fd;
+}
+
+.mode-symbol {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.mode-text {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.range-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.range-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.range-desc {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Switches de configuració NESE */
+.switches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.85rem;
+}
+
+.switch-card {
+  background-color: var(--bg-card-subtle);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.switch-card:hover {
+  border-color: var(--primary);
+}
+
+.switch-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.switch-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.switch-title {
+  display: block;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.switch-desc {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.25;
+}
+
+/* Control Switch (Checkbox) */
+.switch-control {
+  position: relative;
+  width: 52px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.switch-control input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--border-color);
+  transition: var(--transition-fast);
+  border-radius: var(--radius-pill);
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: var(--transition-fast);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+}
+
+input:checked + .slider {
+  background-color: var(--primary);
+}
+
+input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+input:focus-visible + .slider {
+  outline: 3px solid var(--border-focus);
+}
+
+/* Botons d'acció */
+.action-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.btn {
+  font-family: inherit;
+  font-weight: 800;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 3px;
+}
+
+.btn-huge {
+  font-size: 1.35rem;
+  padding: 1.15rem 2.25rem;
+  width: 100%;
+  max-width: 480px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-large {
+  font-size: 1.15rem;
+  padding: 0.95rem 1.85rem;
+  border-radius: var(--radius-pill);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: var(--bg-card-subtle);
+  color: var(--text-main);
+  border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+}
+
+.btn-outline-danger {
+  background-color: transparent;
+  color: var(--danger);
+  border: 2px solid var(--danger-border);
+  padding: 0.4rem 0.85rem;
+  font-size: 0.875rem;
+  border-radius: var(--radius-pill);
+}
+
+.btn-outline-danger:hover {
+  background-color: var(--danger-bg);
+  border-color: var(--danger);
+}
+
+.btn-outline-warning {
+  background-color: transparent;
+  color: var(--warning);
+  border: 2px solid var(--warning);
+  padding: 0.4rem 0.85rem;
+  font-size: 0.875rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: inherit;
+  font-weight: 800;
+  transition: all var(--transition-fast);
+}
+
+.btn-outline-warning:hover {
+  background-color: var(--warning-bg);
+  border-color: var(--warning);
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .btn-outline-warning {
+  color: #fbbf24;
+  border-color: #f59e0b;
+}
+
+[data-theme="dark"] .btn-outline-warning:hover {
+  background-color: rgba(245, 158, 11, 0.2);
+}
+
+/* ==========================================================================
+   PANTALLA 2: JOC / PROVA EN CURS (QUIZ)
+   ========================================================================== */
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 820px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Capa d'interrupció / Pausa */
+.pause-overlay {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+  animation: fadeIn 0.2s ease-out;
+  padding: 1.5rem;
+}
+
+.pause-overlay.hidden {
+  display: none;
+}
+
+.pause-card {
+  background-color: var(--bg-card);
+  border: 3px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  max-width: 460px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pause-badge {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.pause-card h3 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.pause-card p {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.quiz-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-pill, .timer-pill {
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-color);
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.progress-pill strong {
+  color: var(--primary);
+  font-size: 1.25rem;
+}
+
+.pill-total {
+  color: var(--text-muted);
+}
+
+.timer-pill {
+  border-color: var(--warning);
+  color: var(--text-main);
+}
+
+.timer-countdown {
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-main);
+  font-weight: 900;
+}
+
+.timer-pill.urgent {
+  background-color: var(--danger-bg);
+  border-color: var(--danger);
+  animation: pulse 1s infinite alternate;
+}
+
+.timer-pill.urgent .timer-countdown {
+  color: var(--danger);
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+/* Barra de progrés */
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background-color: var(--border-color);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #38bdf8);
+  border-radius: var(--radius-pill);
+  transition: width 0.25s ease-out;
+}
+
+/* Targeta de l'operació (Zona Visual Gegant) */
+.operation-display-card {
+  background-color: var(--bg-card);
+  border: 3px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  margin: 0.5rem 0;
+}
+
+.equation-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 3vw, 2.25rem);
+  flex-wrap: nowrap;
+}
+
+.number-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+}
+
+.math-num {
+  font-size: clamp(3.8rem, 10vw, 6.5rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--text-main);
+  font-variant-numeric: tabular-nums;
+}
+
+.symbol-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.math-operator, .math-equal {
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.math-equal {
+  color: var(--text-muted);
+}
+
+.mystery-block {
+  min-width: 90px;
+}
+
+.mystery-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(75px, 12vw, 110px);
+  height: clamp(75px, 12vw, 110px);
+  background-color: var(--mystery-box-bg);
+  color: var(--mystery-box-text);
+  border: 3.5px dashed var(--mystery-box-border);
+  border-radius: var(--radius-md);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 900;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Bastida visual de punts (subitització NESE) */
+.dot-scaffold {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 96px;
+  height: 38px;
+  min-height: 38px;
+  margin-top: 0.75rem;
+  padding: 4px 8px;
+  background-color: var(--bg-card-subtle);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+  transition: all var(--transition-fast);
+}
+
+.scaffold-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--dot-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+/* Punt buit discontinu per al 0 (manté la simetria i simbolitza l'absència d'elements) */
+.scaffold-dot.empty {
+  background-color: transparent;
+  border: 2px dashed var(--border-color);
+  box-shadow: none;
+  opacity: 0.85;
+}
+
+[data-theme="dark"] .scaffold-dot.empty {
+  border-color: #94a3b8;
+}
+
+/* Àrea d'opcions de resposta */
+.answers-container {
+  text-align: center;
+}
+
+.answers-prompt {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 2.5vw, 1.5rem);
+}
+
+.option-btn {
+  background-color: var(--option-bg);
+  border: 3.5px solid var(--option-border);
+  border-radius: var(--radius-lg);
+  color: var(--option-text);
+  min-height: clamp(85px, 15vh, 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+  padding: 0.5rem;
+  touch-action: manipulation;
+}
+
+.option-btn:hover {
+  background-color: var(--option-hover-bg);
+  border-color: var(--option-hover-border);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.option-btn:active, .option-btn.pressed {
+  background-color: var(--option-active-bg);
+  transform: translateY(1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.option-btn:focus-visible {
+  outline: 4px solid var(--border-focus);
+  outline-offset: 3px;
+}
+
+.option-num {
+  font-size: clamp(2.8rem, 7vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   PANTALLA 3: RESULTATS
+   ========================================================================== */
+.results-card {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.celebration-badge {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.results-header h2 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.motivational-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1.75rem;
+}
+
+.stats-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-box {
+  background-color: var(--bg-card-subtle);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stat-number {
+  font-size: 2.25rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--text-main);
+}
+
+.stat-caption {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.stat-box.success-stat {
+  border-color: var(--success);
+  background-color: var(--success-bg);
+}
+
+.stat-box.success-stat .stat-number {
+  color: var(--success);
+}
+
+.results-actions-primary {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Acordió de Detalls d'Operacions */
+.details-accordion-wrapper {
+  margin-top: 1.5rem;
+  border-top: 2px solid var(--border-color);
+  padding-top: 1.5rem;
+  text-align: left;
+}
+
+.accordion-header-btn {
+  width: 100%;
+  background-color: var(--bg-card-subtle);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.accordion-header-btn:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+}
+
+.accordion-header-btn:focus-visible {
+  outline: 3px solid var(--border-focus);
+}
+
+.accordion-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.accordion-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+}
+
+.accordion-body {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--bg-card-subtle);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.accordion-body.hidden {
+  display: none;
+}
+
+.details-legend {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.badge-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-item.hit .badge-dot {
+  background-color: var(--success);
+}
+
+.legend-item.missed .badge-dot {
+  background-color: var(--danger);
+}
+
+.operations-grid-review {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Targeta individual de revisió d'operació */
+.review-item {
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.review-item.is-correct {
+  border-color: var(--success-border);
+  background-color: var(--success-bg);
+}
+
+.review-item.is-wrong {
+  border-color: var(--danger-border);
+  background-color: var(--danger-bg);
+}
+
+[data-theme="dark"] .review-item.is-correct {
+  border-color: #22c55e;
+  background-color: rgba(34, 197, 94, 0.15);
+}
+
+[data-theme="dark"] .review-item.is-wrong {
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.15);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .review-header {
+  color: #cbd5e1;
+}
+
+.review-eq {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.review-user-ans {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.review-user-ans.correct-text {
+  color: var(--success);
+}
+
+.review-user-ans.wrong-text {
+  color: var(--danger);
+}
+
+.review-sol {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+[data-theme="dark"] .review-sol {
+  color: #f1f5f9;
+}
+
+/* ==========================================================================
+   PEU DE PÀGINA DISCRET (Footer)
+   ========================================================================== */
+.app-footer {
+  margin-top: auto;
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  font-family: var(--font-family);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  opacity: 0.82;
+  transition: opacity var(--transition-fast), background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.app-footer:hover {
+  opacity: 1;
+}
+
+.app-footer .footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.footer-badge-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-badge-img {
+  height: 18px;
+  width: auto;
+  opacity: 0.85;
+  vertical-align: middle;
+}
+
+.footer-text {
+  line-height: 1.3;
+}
+
+.footer-text a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   RESPONSIVITAT I MITJANS D'IMPRESSIÓ
+   ========================================================================== */
+@media (max-width: 820px) {
+  .levels-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .header-controls {
+    align-self: flex-end;
+  }
+  
+  .levels-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .button-selector-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .button-selector-grid.cols-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-summary-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+  
+  .results-actions-primary {
+    flex-direction: column;
+  }
+  
+  .results-actions-primary .btn {
+    width: 100%;
+  }
+}
+
+/* Botó de guia docent a capçalera i enllaç discret a setup */
+.icon-btn.highlight-guide {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.icon-btn.highlight-guide:hover {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.card-intro-actions {
+  margin-top: 0.85rem;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-subtle-guide {
+  background: transparent;
+  border: 1.5px dashed var(--primary);
+  border-radius: var(--radius-pill);
+  padding: 0.4rem 1rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-subtle-guide:hover {
+  background-color: var(--primary-light);
+  border-style: solid;
+  transform: translateY(-1px);
+}
+
+.btn-subtle-guide:focus-visible {
+  outline: 3px solid var(--border-focus);
+}
+
+/* ==========================================================================
+   FINESTRA MODAL: GUIA DOCENT
+   ========================================================================== */
+.modal-dialog {
+  border: none;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  padding: 0;
+  max-width: 920px;
+  width: 92%;
+  box-shadow: var(--shadow-lg);
+  margin: auto;
+  color: var(--text-main);
+}
+
+.modal-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+}
+
+.modal-inner {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: 2.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  padding: 1.25rem 1.5rem;
+  background-color: var(--bg-card-subtle);
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.modal-title-area {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.modal-badge {
+  font-size: 1.85rem;
+  line-height: 1;
+}
+
+.modal-header h2 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.modal-subtitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.modal-close-btn {
+  background: var(--bg-card-subtle);
+  border: 1.5px solid var(--border-color);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.modal-close-btn:hover {
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  color: var(--text-main);
+}
+
+.guide-section-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.guide-section-desc {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+/* Taula de Nivells */
+.levels-table-wrapper {
+  overflow-x: auto;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-card);
+}
+
+.levels-guide-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+  color: var(--text-main);
+}
+
+.levels-guide-table th, .levels-guide-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.levels-guide-table th {
+  background-color: var(--bg-card-subtle);
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.levels-guide-table td strong {
+  color: var(--text-main);
+  font-weight: 800;
+}
+
+.levels-guide-table td small {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.levels-guide-table tr:last-child td {
+  border-bottom: none;
+}
+
+.levels-guide-table tr:hover td {
+  background-color: var(--bg-card-subtle);
+}
+
+.tag-level {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .tag-level {
+  background-color: #1e3a8a;
+  color: #93c5fd;
+  border-color: #60a5fa;
+}
+
+/* Targetes de la guia */
+.guide-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.guide-info-card {
+  background-color: var(--bg-card-subtle);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  color: var(--text-main);
+}
+
+.guide-info-card h4 {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 0.4rem;
+}
+
+.guide-info-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.guide-info-card strong {
+  color: var(--text-main);
+}
+
+.guide-info-card em {
+  color: var(--primary);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  background-color: var(--bg-card-subtle);
+  border-top: 2px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Estils d'impressió (Dossier Docent / Informe NESE) */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  .modal-dialog {
+    display: none !important;
+  }
+  
+  .app-header,
+  .action-footer,
+  .results-actions-primary,
+  .accordion-header-btn,
+  .app-footer {
+    display: none !important;
+  }
+  
+  .accordion-body.hidden {
+    display: block !important;
+  }
+  
+  .card {
+    border: 1px solid #000000 !important;
+    box-shadow: none !important;
+    padding: 1rem !important;
+  }
+  
+  .operations-grid-review {
+    max-height: none !important;
+    overflow: visible !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+</style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-content">
+      <div class="logo-area">
+        <span class="logo-badge" aria-hidden="true">🧠</span>
+        <div class="logo-text">
+          <h1>El Quinzet</h1>
+          <p class="subtitle">Gimnàstica de càlcul mental adaptat</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <!-- Guia docent per a característiques dels nivells -->
+        <button id="teacher-guide-btn" class="icon-btn highlight-guide" aria-label="Obrir la guia docent dels nivells" title="Guia per a mestres">
+          <span class="btn-icon">🎓</span>
+          <span class="btn-label">Guia docent</span>
+        </button>
+        <!-- Control de so -->
+        <button id="sound-toggle-btn" class="icon-btn" aria-label="Activar o desactivar el so" title="Activar/desactivar so">
+          <span class="btn-icon">🔊</span>
+          <span class="btn-label">So</span>
+        </button>
+        <!-- Selector de tema -->
+        <div class="theme-selector-wrapper">
+          <button id="theme-toggle-btn" class="icon-btn" aria-label="Canviar tema clar o fosc" title="Canviar tema">
+            <span id="theme-icon" class="btn-icon">🌓</span>
+            <span id="theme-label" class="btn-label">Tema</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="app-main" class="main-container">
+    <!-- PANTALLA 1: CONFIGURACIÓ INICIAL -->
+    <section id="setup-screen" class="screen active" aria-labelledby="setup-title">
+      <div class="card setup-card">
+        <div class="card-intro">
+          <h2 id="setup-title">Prepara el teu repte</h2>
+          <p>Tria les opcions que millor s'adaptin a la teva sessió de càlcul.</p>
+          <div class="card-intro-actions">
+            <button type="button" id="open-guide-link-btn" class="btn-subtle-guide">
+              <span class="guide-icon">ℹ️</span>
+              <span>Característiques dels 6 nivells i operacions</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. Selector de Nivells Progressius (Sense estigmes d'edat) -->
+        <div class="form-group">
+          <label class="group-label">1. Tria el nivell de repte:</label>
+          <div class="levels-grid" role="radiogroup" aria-label="Nivell de càlcul">
+            <button type="button" class="level-card-btn active" data-level="1" role="radio" aria-checked="true">
+              <span class="level-tag">Nivell 1</span>
+              <span class="level-name">Iniciació</span>
+              <span class="level-scope">Sumes i restes fins a 5</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="2" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 2</span>
+              <span class="level-name">Descoberta</span>
+              <span class="level-scope">Sumes i restes fins a 10</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="3" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 3</span>
+              <span class="level-name">Consolidació</span>
+              <span class="level-scope">Nombres fins a 20</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="4" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 4</span>
+              <span class="level-name">Progrés</span>
+              <span class="level-scope">Taules de multiplicar (2 a 5)</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="5" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 5</span>
+              <span class="level-name">Avançat</span>
+              <span class="level-scope">Taules completes i divisions</span>
+            </button>
+            <button type="button" class="level-card-btn" data-level="6" role="radio" aria-checked="false">
+              <span class="level-tag">Nivell 6</span>
+              <span class="level-name">Mestre</span>
+              <span class="level-scope">Càlcul àgil amb 4 operacions</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Modalitat d'operacions dinàmica segons el nivell -->
+        <div class="form-group">
+          <label class="group-label">2. Quines operacions vols fer?</label>
+          <div id="operation-modes-container" class="button-selector-grid" role="radiogroup" aria-label="Tipus d'operació">
+            <!-- Es renderitza o actualitza per JS segons el nivell -->
+            <button type="button" class="mode-btn active" data-mode="sumes" role="radio" aria-checked="true">
+              <span class="mode-symbol">➕</span>
+              <span class="mode-text">Sumes</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="restes" role="radio" aria-checked="false">
+              <span class="mode-symbol">➖</span>
+              <span class="mode-text">Restes</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="mult" role="radio" aria-checked="false" style="display: none;">
+              <span class="mode-symbol">✖️</span>
+              <span class="mode-text">Multiplicacions</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="div" role="radio" aria-checked="false" style="display: none;">
+              <span class="mode-symbol">➗</span>
+              <span class="mode-text">Divisions</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="variat" role="radio" aria-checked="false">
+              <span class="mode-symbol">🔀</span>
+              <span class="mode-text">Variat</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Adaptacions de suport (Cronòmetre i Bastida visual) -->
+        <div class="form-group">
+          <label class="group-label">3. Adaptacions de suport (NESE):</label>
+          <div class="switches-grid">
+            <!-- Switch Cronòmetre -->
+            <label class="switch-card" for="timer-toggle">
+              <div class="switch-info">
+                <span class="switch-icon">⏱️</span>
+                <div>
+                  <span class="switch-title">Cronòmetre de 3 minuts</span>
+                  <span class="switch-desc">Desactiva'l per a treballar al teu propi ritme</span>
+                </div>
+              </div>
+              <div class="switch-control">
+                <input type="checkbox" id="timer-toggle" checked />
+                <span class="slider"></span>
+              </div>
+            </label>
+
+            <!-- Switch Bastida visual -->
+            <label class="switch-card" for="scaffold-toggle">
+              <div class="switch-info">
+                <span class="switch-icon">🔴</span>
+                <div>
+                  <span class="switch-title">Bastida visual (Punts)</span>
+                  <span class="switch-desc">Mostra punts de subitització sota les xifres</span>
+                </div>
+              </div>
+              <div class="switch-control">
+                <input type="checkbox" id="scaffold-toggle" />
+                <span class="slider"></span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Botó d'inici -->
+        <div class="action-footer">
+          <button id="start-quiz-btn" class="btn btn-primary btn-huge" type="button">
+            <span>Començar el Repte (60 operacions)</span>
+            <span class="btn-arrow">➔</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: JOC / PROVA EN CURS -->
+    <section id="quiz-screen" class="screen" aria-live="polite">
+      <div class="quiz-container">
+        <!-- Barra superior de progrés i temps -->
+        <div class="quiz-topbar">
+          <div class="progress-pill level-pill">
+            <span class="pill-icon">🎯</span>
+            <strong id="current-level-display">Nivell 1</strong>
+          </div>
+
+          <div class="progress-pill">
+            <span class="pill-icon">📝</span>
+            <span class="pill-label">Op:</span>
+            <strong id="current-op-index">1</strong>
+            <span class="pill-total">/ 60</span>
+          </div>
+
+          <!-- Cronòmetre (visualitzat si està actiu) -->
+          <div id="timer-display-container" class="timer-pill">
+            <span class="pill-icon">⏳</span>
+            <span id="timer-text" class="timer-countdown">03:00</span>
+          </div>
+
+          <!-- Botó de pausa (només visible quan hi ha cronòmetre) -->
+          <button id="pause-btn" class="btn btn-outline-warning btn-sm" type="button" title="Pausar o reprendre el temps">
+            <span id="pause-icon">⏸️</span>
+            <span id="pause-label">Pausa</span>
+          </button>
+
+          <!-- Botó d'aturada / sortida segura -->
+          <button id="end-early-btn" class="btn btn-outline-danger btn-sm" type="button" title="Finalitzar la prova ara">
+            <span>Finalitzar</span>
+          </button>
+        </div>
+
+        <!-- Barra de progrés visual -->
+        <div class="progress-track" aria-hidden="true">
+          <div id="progress-bar" class="progress-fill" style="width: 0%;"></div>
+        </div>
+
+        <!-- Targeta de l'operació matemàtica -->
+        <div class="operation-display-card">
+          <div class="equation-container">
+            <!-- Operand 1 -->
+            <div class="number-block">
+              <span id="num1" class="math-num">0</span>
+              <div id="num1-scaffold" class="dot-scaffold" aria-hidden="true"></div>
+            </div>
+
+            <!-- Signe operador -->
+            <div class="symbol-block">
+              <span id="operator" class="math-operator">+</span>
+            </div>
+
+            <!-- Operand 2 -->
+            <div class="number-block">
+              <span id="num2" class="math-num">0</span>
+              <div id="num2-scaffold" class="dot-scaffold" aria-hidden="true"></div>
+            </div>
+
+            <!-- Igual -->
+            <div class="symbol-block">
+              <span class="math-equal">=</span>
+            </div>
+
+            <!-- Interrogant -->
+            <div class="number-block mystery-block">
+              <span class="mystery-box">?</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Àrea de selecció de les 3 respostes -->
+        <div class="answers-container">
+          <p class="answers-prompt">Tria la resposta correcta:</p>
+          <div class="options-grid">
+            <button type="button" class="option-btn" data-index="0" aria-label="Opció 1">
+              <span class="option-num">-</span>
+            </button>
+            <button type="button" class="option-btn" data-index="1" aria-label="Opció 2">
+              <span class="option-num">-</span>
+            </button>
+            <button type="button" class="option-btn" data-index="2" aria-label="Opció 3">
+              <span class="option-num">-</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Capa de Pausa (Visible quan el joc està pausat) -->
+        <div id="pause-overlay" class="pause-overlay hidden">
+          <div class="pause-card">
+            <span class="pause-badge" aria-hidden="true">⏸️</span>
+            <h3>Activitat en pausa</h3>
+            <p>El cronòmetre està aturat. Respira i continua quan estiguis a punt!</p>
+            <button id="resume-btn" class="btn btn-primary btn-large" type="button">
+              <span>▶️ Reprendre el repte</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 3: RESULTATS FINALS -->
+    <section id="results-screen" class="screen" aria-labelledby="results-title">
+      <div class="card results-card">
+        <div class="results-header">
+          <div class="celebration-badge" aria-hidden="true">🌟</div>
+          <div id="results-level-badge" class="level-result-pill">Nivell 1</div>
+          <h2 id="results-title">Prova finalitzada!</h2>
+          <p id="motivational-message" class="motivational-text">Molt bona feina! Has completat l'exercici.</p>
+        </div>
+
+        <!-- Targetes de resum de dades -->
+        <div class="stats-summary-grid">
+          <div class="stat-box success-stat">
+            <span class="stat-number" id="total-hits">0</span>
+            <span class="stat-caption">Encerts</span>
+          </div>
+          <div class="stat-box answered-stat">
+            <span class="stat-number" id="total-attempted">0</span>
+            <span class="stat-caption">Operacions fetes</span>
+          </div>
+          <div class="stat-box time-stat">
+            <span class="stat-number" id="total-time-spent">00:00</span>
+            <span class="stat-caption">Temps dedicat</span>
+          </div>
+        </div>
+
+        <!-- Accions principals -->
+        <div class="results-actions-primary">
+          <button id="play-again-btn" class="btn btn-primary btn-large" type="button">
+            <span>🔄 Tornar a jugar</span>
+          </button>
+          <button id="print-results-btn" class="btn btn-secondary btn-large" type="button">
+            <span>🖨️ Imprimir / Desar informe</span>
+          </button>
+        </div>
+
+        <!-- Mòdul Acordió: Detall d'operacions (Amagat per defecte) -->
+        <div class="details-accordion-wrapper">
+          <button id="toggle-details-btn" class="accordion-header-btn" type="button" aria-expanded="false" aria-controls="details-content">
+            <span class="accordion-title">
+              <span id="accordion-icon">👁️</span>
+              <span>Consultar operacions encertades i equivocades</span>
+            </span>
+            <span id="accordion-indicator" class="accordion-badge">Mostra el detall</span>
+          </button>
+
+          <div id="details-content" class="accordion-body hidden" role="region" aria-labelledby="toggle-details-btn">
+            <div class="details-legend">
+              <span class="legend-item hit"><span class="badge-dot"></span> Encertada</span>
+              <span class="legend-item missed"><span class="badge-dot"></span> Errada</span>
+            </div>
+            <div id="operations-review-list" class="operations-grid-review">
+              <!-- Es generarà dinàmicament per JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Peu de pàgina discret d'atribució docent David Cordones (2026) -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" class="footer-badge-link" title="Llicència Creative Commons BY-SA 4.0">
+        <img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg" alt="CC BY-SA 4.0" class="footer-badge-img" />
+      </a>
+      <span class="footer-text">
+        © David Cordones · 2026 · Codi: <strong>AGPL v3</strong> · Contingut: <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- MODAL: GUIA DOCENT I CARACTERÍSTIQUES DELS NIVELLS -->
+  <dialog id="teacher-guide-modal" class="modal-dialog" aria-labelledby="guide-modal-title">
+    <div class="modal-inner">
+      <div class="modal-header">
+        <div class="modal-title-area">
+          <span class="modal-badge" aria-hidden="true">🎓</span>
+          <div>
+            <h2 id="guide-modal-title">Guia Docent: Característiques dels Nivells</h2>
+            <p class="modal-subtitle">Orientacions curriculars, gestió d'operacions i atenció a la diversitat (NESE)</p>
+          </div>
+        </div>
+        <button id="close-guide-btn" class="modal-close-btn" type="button" aria-label="Tancar la guia docent">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Secció 1: Resum Pedagògic dels 6 Nivells -->
+        <section class="guide-section">
+          <h3 class="guide-section-title">📊 Correspondència i Continguts dels 6 Nivells</h3>
+          <p class="guide-section-desc">
+            Els nivells s'anomenen de manera neutra (Nivell 1 a 6) perquè l'alumnat que requereixi entrenar operacions d'un nivell previ no se senti mai assenyalat ni infantilinitzat.
+          </p>
+
+          <div class="levels-table-wrapper">
+            <table class="levels-guide-table">
+              <thead>
+                <tr>
+                  <th>Nivell a l'App</th>
+                  <th>Correspondència Docent</th>
+                  <th>Abast Matemàtic</th>
+                  <th>Operacions Disponibles</th>
+                  <th>Suport NESE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="tag-level l1">Nivell 1 · Iniciació</span></td>
+                  <td><strong>I5 / P5</strong><br><small>(Sèrie "Abans de 1r")</small></td>
+                  <td>Sumes fins a 5 (esporàdic 6). Restes de minuends 1 a 4.</td>
+                  <td>Sumes, Restes, Variat (+/-)</td>
+                  <td>Bastida visual de punts disponible</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l2">Nivell 2 · Descoberta</span></td>
+                  <td><strong>1r de Primària</strong></td>
+                  <td>Sumes i restes fins al 10 (sense creuar desena).</td>
+                  <td>Sumes, Restes, Variat (+/-)</td>
+                  <td>Bastida visual de punts disponible</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l3">Nivell 3 · Consolidació</span></td>
+                  <td><strong>2n de Primària</strong></td>
+                  <td>Sumes fins a 20 creuant desena (8+7, 9+6) i restes de desena (10-7, 9-4).</td>
+                  <td>Sumes, Restes, Variat (+/-)</td>
+                  <td>Bastida visual opcional</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l4">Nivell 4 · Progrés</span></td>
+                  <td><strong>3r de Primària</strong></td>
+                  <td>Sumes/restes ràpides i <strong>primeres taules de multiplicar (2, 3, 4 i 5)</strong>.</td>
+                  <td>Sumes, Restes, <strong>Multiplicacions</strong>, Variat</td>
+                  <td>Càlcul abstracte</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l5">Nivell 5 · Avançat</span></td>
+                  <td><strong>4t de Primària</strong></td>
+                  <td><strong>Taules completes (1..10)</strong> i <strong>divisions exactes elementals</strong> (ex: 28:7, 36:9, 72:8).</td>
+                  <td>Sumes, Restes, <strong>Multiplicacions</strong>, <strong>Divisions</strong>, Variat (totes 4)</td>
+                  <td>Agilitat mental</td>
+                </tr>
+                <tr>
+                  <td><span class="tag-level l6">Nivell 6 · Mestre</span></td>
+                  <td><strong>5è i 6è de Primària</strong></td>
+                  <td>Multiplicacions per desenes (15×2, 14×2, 25×2, 11×6) i divisions amb quocients superiors (66:6, 80:8).</td>
+                  <td>Les 4 operacions combinades al complet</td>
+                  <td>Alta automatització</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Secció 2: Selector Dinàmic d'Operacions -->
+        <section class="guide-section">
+          <h3 class="guide-section-title">🔀 Com funciona el Selector Dinàmic d'Operacions?</h3>
+          <div class="guide-cards-grid">
+            <div class="guide-info-card">
+              <h4>1. Activació curricular automàtica</h4>
+              <p>
+                Els botons d'operacions s'adapten immediatament en triar el nivell:
+                a Nivells 1-3 només es mostren sumes i restes; a partir del Nivell 4 apareix la multiplicació; i a partir del Nivell 5, la divisió exacta.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>2. Auto-ajust intel·ligent anti-error</h4>
+              <p>
+                Si un docent o alumne té seleccionat un mode avançat (ex. <em>Divisions</em>) i canvia a un nivell inicial (ex. <em>Nivell 1</em>), el sistema commuta automàticament a <em>Sumes</em> sense generar inconsistències.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>3. Repartiment equilibrat del mode "Variat"</h4>
+              <p>
+                En triar el mode <em>Variat</em>, el generador barreja de manera homogènia les operacions permeses pel nivell:
+                50% sumes i 50% restes (Nivells 1-3), un terç de cada a Nivell 4, i un 25% exacte de cadascuna de les 4 operacions a Nivells 5 i 6.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>4. Adaptacions NESE integrades</h4>
+              <p>
+                • <strong>Bastida visual de punts:</strong> Disponible a nivells 1, 2 i 3 per facilitar la subitització en infants amb dificultats en el llenguatge simbòlic.<br>
+                • <strong>Cronòmetre desactivable:</strong> Permet realitzar la prova al ritme propi sense l'estrès del compte enrere de 3 minuts.<br>
+                • <strong>Neutralitat durant la tasca:</strong> Cap retroacció d'error/encert en directe per evitar el bloqueig emocional.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="modal-footer">
+        <button id="close-guide-footer-btn" class="btn btn-primary" type="button">Entès, tancar la guia</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+/**
+ * EL QUINZET - CÀLCUL MENTAL ADAPTAT NESE (MULTINIVELL)
+ * Lògica de l'aplicació, motor de càlcul adaptat a 6 nivells de progressió,
+ * síntesi Web Audio API, interfície neutra sense estigmes d'edat i accessibilitat.
+ * 
+ * Autoria: David Cordones (2026)
+ * Llicència del codi: AGPL v3
+ */
+
+(() => {
+  'use strict';
+
+  // ==========================================================================
+  // CONFIGURACIÓ DE NIVELLS (Noms neutres i rigor matemàtic)
+  // ==========================================================================
+  const LEVELS_CONFIG = {
+    1: {
+      id: 1,
+      title: 'Nivell 1',
+      name: 'Iniciació',
+      scope: 'Sumes i restes fins a 5',
+      allowedModes: ['sumes', 'restes', 'variat'],
+      allowScaffold: true
+    },
+    2: {
+      id: 2,
+      title: 'Nivell 2',
+      name: 'Descoberta',
+      scope: 'Sumes i restes fins a 10',
+      allowedModes: ['sumes', 'restes', 'variat'],
+      allowScaffold: true
+    },
+    3: {
+      id: 3,
+      title: 'Nivell 3',
+      name: 'Consolidació',
+      scope: 'Nombres fins a 20',
+      allowedModes: ['sumes', 'restes', 'variat'],
+      allowScaffold: true
+    },
+    4: {
+      id: 4,
+      title: 'Nivell 4',
+      name: 'Progrés',
+      scope: 'Taules de multiplicar (2 a 5)',
+      allowedModes: ['sumes', 'restes', 'mult', 'variat'],
+      allowScaffold: false
+    },
+    5: {
+      id: 5,
+      title: 'Nivell 5',
+      name: 'Avançat',
+      scope: 'Taules completes i divisions',
+      allowedModes: ['sumes', 'restes', 'mult', 'div', 'variat'],
+      allowScaffold: false
+    },
+    6: {
+      id: 6,
+      title: 'Nivell 6',
+      name: 'Mestre',
+      scope: 'Càlcul àgil amb 4 operacions',
+      allowedModes: ['sumes', 'restes', 'mult', 'div', 'variat'],
+      allowScaffold: false
+    }
+  };
+
+  // ==========================================================================
+  // ESTAT DE L'APLICACIÓ (Application State)
+  // ==========================================================================
+  const state = {
+    level: 1,
+    mode: 'sumes',          // 'sumes' | 'restes' | 'mult' | 'div' | 'variat'
+    timerEnabled: true,
+    scaffoldEnabled: false,
+    soundEnabled: true,
+    theme: 'system',
+
+    totalOps: 60,
+    timeLimitSeconds: 180,  // 3 minuts
+    timeRemaining: 180,
+    timerInterval: null,
+    startTime: null,
+
+    operations: [],
+    currentIndex: 0,
+    userAnswers: [],
+    hitsCount: 0,
+    isDebouncing: false,
+    isPaused: false,
+    quizFinished: false
+  };
+
+  // ==========================================================================
+  // SÍNTESI D'ÀUDIO (Web Audio API - 100% autònom sense arxius externs)
+  // ==========================================================================
+  let audioCtx = null;
+
+  function initAudio() {
+    if (!audioCtx && typeof (window.AudioContext || window.webkitAudioContext) !== 'undefined') {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContextClass();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  function playTapSound() {
+    if (!state.soundEnabled) return;
+    try {
+      initAudio();
+      if (!audioCtx) return;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      const now = audioCtx.currentTime;
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(780, now + 0.06);
+
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } catch (e) {
+      // Ignorar fallades si el navegador bloqueja l'àudio
+    }
+  }
+
+  function playCelebrationSound() {
+    if (!state.soundEnabled) return;
+    try {
+      initAudio();
+      if (!audioCtx) return;
+
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      const now = audioCtx.currentTime;
+
+      notes.forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+
+        gain.gain.setValueAtTime(0.14, now + idx * 0.09);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.45);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now + idx * 0.09);
+        osc.stop(now + idx * 0.09 + 0.48);
+      });
+    } catch (e) {
+      // Ignorar
+    }
+  }
+
+  // ==========================================================================
+  // GESTIÓ DEL TEMA (Clar / Fosc)
+  // ==========================================================================
+  function applyTheme(targetTheme) {
+    state.theme = targetTheme;
+    const root = document.documentElement;
+    const themeIcon = document.getElementById('theme-icon');
+    const themeLabel = document.getElementById('theme-label');
+
+    if (targetTheme === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+      if (themeIcon) themeIcon.textContent = '🌙';
+      if (themeLabel) themeLabel.textContent = 'Fosc';
+    } else if (targetTheme === 'light') {
+      root.setAttribute('data-theme', 'light');
+      if (themeIcon) themeIcon.textContent = '☀️';
+      if (themeLabel) themeLabel.textContent = 'Clar';
+    } else {
+      const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (isSystemDark) {
+        root.setAttribute('data-theme', 'dark');
+      } else {
+        root.removeAttribute('data-theme');
+      }
+      if (themeIcon) themeIcon.textContent = '🌓';
+      if (themeLabel) themeLabel.textContent = 'Auto';
+    }
+    localStorage.setItem('quinzet_theme_pref', targetTheme);
+  }
+
+  function cycleTheme() {
+    if (state.theme === 'system') {
+      applyTheme('light');
+    } else if (state.theme === 'light') {
+      applyTheme('dark');
+    } else {
+      applyTheme('system');
+    }
+  }
+
+  // ==========================================================================
+  // MOTOR MATEMÀTIC MULTINIVELL (Inspirat fidelment en les sèries Quinzet)
+  // ==========================================================================
+
+  // 1. GENERACIÓ DE SUMES
+  function generateSum(level) {
+    let n1, n2;
+    if (level === 1) {
+      // Nivell 1: sumes fins a 5 (esporàdic 6 com a pàg 4)
+      const max = Math.random() < 0.2 ? 6 : 5;
+      n1 = Math.floor(Math.random() * max);
+      n2 = Math.floor(Math.random() * (max - n1 + 1));
+    } else if (level === 2) {
+      // Nivell 2: sumands fins a 5, resultat fins a 10
+      n1 = Math.floor(Math.random() * 5) + 1;
+      n2 = Math.floor(Math.random() * 5) + 1;
+    } else if (level === 3) {
+      // Nivell 3: sumands 1..9, resultats fins a 18
+      n1 = Math.floor(Math.random() * 8) + 2;
+      n2 = Math.floor(Math.random() * 8) + 2;
+    } else if (level === 4) {
+      // Nivell 4: sumes creuant desena (ex: 8+6, 9+7, 7+5)
+      n1 = Math.floor(Math.random() * 5) + 5; // 5..9
+      n2 = Math.floor(Math.random() * 6) + 4; // 4..9
+    } else if (level === 5) {
+      // Nivell 5: sumes amb desenes baixes (ex: 6+14, 7+12)
+      n1 = Math.floor(Math.random() * 9) + 2;
+      n2 = Math.floor(Math.random() * 8) + 11;
+    } else {
+      // Nivell 6: sumes de dues xifres (ex: 18+7, 14+9, 13+8)
+      n1 = [12, 13, 14, 15, 16, 17, 18, 19][Math.floor(Math.random() * 8)];
+      n2 = Math.floor(Math.random() * 8) + 2;
+    }
+
+    return {
+      num1: n1,
+      num2: n2,
+      operator: '+',
+      solution: n1 + n2
+    };
+  }
+
+  // 2. GENERACIÓ DE RESTES
+  function generateSubtraction(level) {
+    let n1, n2;
+    if (level === 1) {
+      // Nivell 1: Minuend 1..4, substrahend 0..Minuend
+      n1 = Math.floor(Math.random() * 4) + 1;
+      n2 = Math.floor(Math.random() * (n1 + 1));
+    } else if (level === 2) {
+      // Nivell 2: Minuend 2..6, substrahend 0..Minuend
+      n1 = Math.floor(Math.random() * 5) + 2;
+      n2 = Math.floor(Math.random() * (n1 + 1));
+    } else if (level === 3) {
+      // Nivell 3: Minuend fins a 10 (ex: 10-7, 9-7, 8-3)
+      n1 = Math.floor(Math.random() * 6) + 5; // 5..10
+      n2 = Math.floor(Math.random() * (n1 - 1)) + 1;
+    } else if (level === 4) {
+      // Nivell 4: Restes ràpides creuant o tocant desena (ex: 10-7, 10-8, 9-4)
+      n1 = Math.floor(Math.random() * 4) + 7; // 7..10
+      n2 = Math.floor(Math.random() * (n1 - 1)) + 1;
+    } else if (level === 5) {
+      // Nivell 5: Restes creuant desena (ex: 13-7, 14-6, 17-9)
+      n1 = Math.floor(Math.random() * 8) + 11; // 11..18
+      n2 = Math.floor(Math.random() * 8) + 2;
+    } else {
+      // Nivell 6: Restes avançades (ex: 21-6, 22-8, 23-9)
+      n1 = Math.floor(Math.random() * 6) + 19; // 19..24
+      n2 = Math.floor(Math.random() * 8) + 2;
+    }
+
+    return {
+      num1: n1,
+      num2: n2,
+      operator: '-',
+      solution: n1 - n2
+    };
+  }
+
+  // 3. GENERACIÓ DE MULTIPLICACIONS
+  function generateMultiplication(level) {
+    let n1, n2;
+    if (level <= 4) {
+      // Taules inicials (2, 3, 4, 5) per nombres 1..9
+      const tables = [2, 3, 4, 5];
+      n1 = tables[Math.floor(Math.random() * tables.length)];
+      n2 = Math.floor(Math.random() * 9) + 1;
+    } else if (level === 5) {
+      // Taules completes 2..9
+      n1 = Math.floor(Math.random() * 8) + 2;
+      n2 = Math.floor(Math.random() * 8) + 2;
+    } else {
+      // Nivell 6: inclou càlculs especials (ex: 15x2, 12x3, 14x2, 11x6, 25x2)
+      if (Math.random() < 0.45) {
+        n1 = [10, 11, 12, 13, 14, 15, 20, 25][Math.floor(Math.random() * 8)];
+        n2 = Math.floor(Math.random() * 4) + 2; // x2, x3, x4, x5
+      } else {
+        n1 = Math.floor(Math.random() * 8) + 2;
+        n2 = Math.floor(Math.random() * 8) + 2;
+      }
+    }
+
+    // A vegades invertim l'ordre per variabilitat
+    if (Math.random() < 0.5 && level <= 5) {
+      const tmp = n1; n1 = n2; n2 = tmp;
+    }
+
+    return {
+      num1: n1,
+      num2: n2,
+      operator: '×',
+      solution: n1 * n2
+    };
+  }
+
+  // 4. GENERACIÓ DE DIVISIONS EXACTES
+  function generateDivision(level) {
+    let divisor, quotient;
+    if (level === 5) {
+      // Divisions exactes de les taules estàndard (ex: 36:6, 72:8, 28:7)
+      divisor = Math.floor(Math.random() * 8) + 2; // 2..9
+      quotient = Math.floor(Math.random() * 8) + 2; // 2..9
+    } else {
+      // Nivell 6: Divisions amb divisors/quocients superiors (ex: 66:6, 80:8, 24:2, 50:5)
+      if (Math.random() < 0.35) {
+        divisor = [2, 3, 4, 5, 6, 8, 10, 11, 12][Math.floor(Math.random() * 9)];
+        quotient = Math.floor(Math.random() * 9) + 2;
+      } else {
+        divisor = Math.floor(Math.random() * 8) + 2;
+        quotient = Math.floor(Math.random() * 8) + 2;
+      }
+    }
+
+    const dividend = divisor * quotient;
+    return {
+      num1: dividend,
+      num2: divisor,
+      operator: ':',
+      solution: quotient
+    };
+  }
+
+  // 5. GENERACIÓ DE DISTRACTORS INTEL·LIGENTS
+  function generateSmartOptions(op) {
+    const sol = op.solution;
+    const options = new Set([sol]);
+
+    let candidateOffsets;
+    if (op.operator === '×' || op.operator === ':') {
+      // Per a multiplicacions o divisions, afegim distractors coherents
+      candidateOffsets = [-1, 1, -2, 2, -op.num2, op.num2, 3, -3];
+    } else {
+      candidateOffsets = [-1, 1, -2, 2, -3, 3];
+    }
+
+    candidateOffsets.sort(() => Math.random() - 0.5);
+
+    for (const offset of candidateOffsets) {
+      const candidate = sol + offset;
+      if (candidate >= 0 && !options.has(candidate)) {
+        options.add(candidate);
+      }
+      if (options.size === 3) break;
+    }
+
+    // Fallback garantit
+    let fallback = 0;
+    while (options.size < 3) {
+      if (!options.has(fallback)) {
+        options.add(fallback);
+      }
+      fallback++;
+    }
+
+    const arr = Array.from(options);
+    arr.sort(() => Math.random() - 0.5);
+    return arr;
+  }
+
+  // 6. GENERADOR DE LA LLISTA COMPLETA DE 60 OPERACIONS
+  function generateOperationsList(level, mode, count = 60) {
+    const list = [];
+    const cfg = LEVELS_CONFIG[level];
+
+    // Determinar els tipus d'operacions possibles per a 'variat'
+    let variatPool = ['sumes', 'restes'];
+    if (level === 4) variatPool = ['sumes', 'restes', 'mult'];
+    if (level >= 5) variatPool = ['sumes', 'restes', 'mult', 'div'];
+
+    for (let i = 0; i < count; i++) {
+      let chosenType = mode;
+      if (mode === 'variat') {
+        chosenType = variatPool[i % variatPool.length];
+      }
+
+      let op;
+      if (chosenType === 'sumes') {
+        op = generateSum(level);
+      } else if (chosenType === 'restes') {
+        op = generateSubtraction(level);
+      } else if (chosenType === 'mult') {
+        op = generateMultiplication(level);
+      } else if (chosenType === 'div') {
+        op = generateDivision(level);
+      } else {
+        op = generateSum(level);
+      }
+
+      op.options = generateSmartOptions(op);
+      op.index = i + 1;
+      list.push(op);
+    }
+
+    if (mode === 'variat') {
+      list.sort(() => Math.random() - 0.5);
+      list.forEach((item, idx) => { item.index = idx + 1; });
+    }
+
+    return list;
+  }
+
+  // ==========================================================================
+  // RENDERITZAT DE LA BASTIDA VISUAL
+  // ==========================================================================
+  function renderScaffold(containerEl, num) {
+    containerEl.innerHTML = '';
+    const currentCfg = LEVELS_CONFIG[state.level];
+    
+    // Si la bastida no està habilitada o el nivell no l'admet, l'ocultem
+    if (!state.scaffoldEnabled || !currentCfg.allowScaffold) {
+      containerEl.style.display = 'none';
+      return;
+    }
+
+    // Quan la bastida està activa, SEMPRE mantenim el contenidor visible per garantir una alineació vertical perfecta
+    containerEl.style.display = 'flex';
+
+    if (num === 0) {
+      // Per al 0: cercle buit discontinu (simbolitza la safata buida / quantitat zero)
+      const emptyDot = document.createElement('span');
+      emptyDot.className = 'scaffold-dot empty';
+      emptyDot.title = 'Zero (sense quantitat)';
+      emptyDot.setAttribute('aria-label', 'Zero punts');
+      containerEl.appendChild(emptyDot);
+    } else {
+      // Per a nombres > 0 (fins a 10)
+      const count = Math.min(num, 10);
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'scaffold-dot';
+        containerEl.appendChild(dot);
+      }
+    }
+  }
+
+  // ==========================================================================
+  // GESTIÓ DE PANTALLES I JOC
+  // ==========================================================================
+  const screens = {
+    setup: document.getElementById('setup-screen'),
+    quiz: document.getElementById('quiz-screen'),
+    results: document.getElementById('results-screen')
+  };
+
+  function switchScreen(targetScreenName) {
+    Object.keys(screens).forEach(key => {
+      if (key === targetScreenName) {
+        screens[key].classList.add('active');
+      } else {
+        screens[key].classList.remove('active');
+      }
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Actualitza la visibilitat dels botons de modalitat segons el nivell seleccionat
+  function updateOperationModesForLevel(level) {
+    const cfg = LEVELS_CONFIG[level];
+    const modeBtns = document.querySelectorAll('.mode-btn');
+
+    let isCurrentModeValid = false;
+
+    modeBtns.forEach(btn => {
+      const modeName = btn.dataset.mode;
+      if (cfg.allowedModes.includes(modeName)) {
+        btn.style.display = 'flex';
+        if (modeName === state.mode) {
+          isCurrentModeValid = true;
+        }
+      } else {
+        btn.style.display = 'none';
+        btn.classList.remove('active');
+        btn.setAttribute('aria-checked', 'false');
+      }
+    });
+
+    // Si el mode seleccionat anteriorment ja no és vàlid (ex: divisions al nivell 1), revertim a sumes
+    if (!isCurrentModeValid) {
+      state.mode = 'sumes';
+      const defaultBtn = document.querySelector('.mode-btn[data-mode="sumes"]');
+      if (defaultBtn) {
+        defaultBtn.classList.add('active');
+        defaultBtn.setAttribute('aria-checked', 'true');
+      }
+    }
+
+    // Gestionar la disponibilitat del switch de bastida visual
+    const scaffoldCard = document.getElementById('scaffold-toggle').closest('.switch-card');
+    if (scaffoldCard) {
+      if (cfg.allowScaffold) {
+        scaffoldCard.style.opacity = '1';
+        scaffoldCard.style.pointerEvents = 'auto';
+      } else {
+        scaffoldCard.style.opacity = '0.5';
+        scaffoldCard.style.pointerEvents = 'none';
+        document.getElementById('scaffold-toggle').checked = false;
+      }
+    }
+  }
+
+  function startQuiz() {
+    initAudio();
+
+    // Llegir configuració de la pantalla de setup
+    const activeLevelBtn = document.querySelector('.level-card-btn.active');
+    state.level = activeLevelBtn ? parseInt(activeLevelBtn.dataset.level, 10) : 1;
+
+    const activeModeBtn = document.querySelector('.mode-btn.active');
+    state.mode = activeModeBtn ? activeModeBtn.dataset.mode : 'sumes';
+
+    state.timerEnabled = document.getElementById('timer-toggle').checked;
+    state.scaffoldEnabled = document.getElementById('scaffold-toggle').checked;
+
+    // Inicialitzar partida
+    state.currentIndex = 0;
+    state.userAnswers = [];
+    state.hitsCount = 0;
+    state.quizFinished = false;
+    state.isDebouncing = false;
+    state.operations = generateOperationsList(state.level, state.mode, state.totalOps);
+    state.startTime = Date.now();
+
+    // Actualitzar etiquetes de la pantalla de joc
+    const levelCfg = LEVELS_CONFIG[state.level];
+    document.getElementById('current-level-display').textContent = levelCfg.title;
+
+    // Configurar cronòmetre i botó de pausa
+    const timerContainer = document.getElementById('timer-display-container');
+    const pauseBtn = document.getElementById('pause-btn');
+    const pauseOverlay = document.getElementById('pause-overlay');
+    if (pauseOverlay) pauseOverlay.classList.add('hidden');
+
+    state.isPaused = false;
+    if (state.timerEnabled) {
+      timerContainer.style.display = 'inline-flex';
+      timerContainer.classList.remove('urgent');
+      if (pauseBtn) {
+        pauseBtn.style.display = 'inline-flex';
+        const pauseIcon = document.getElementById('pause-icon');
+        const pauseLabel = document.getElementById('pause-label');
+        if (pauseIcon) pauseIcon.textContent = '⏸️';
+        if (pauseLabel) pauseLabel.textContent = 'Pausa';
+      }
+      state.timeRemaining = state.timeLimitSeconds;
+      updateTimerDisplay();
+      startTimer();
+    } else {
+      timerContainer.style.display = 'none';
+      if (pauseBtn) pauseBtn.style.display = 'none';
+      if (state.timerInterval) clearInterval(state.timerInterval);
+    }
+
+    displayCurrentOperation();
+    switchScreen('quiz');
+  }
+
+  function startTimer() {
+    if (state.timerInterval) clearInterval(state.timerInterval);
+
+    state.timerInterval = setInterval(() => {
+      state.timeRemaining--;
+      updateTimerDisplay();
+
+      const timerContainer = document.getElementById('timer-display-container');
+      if (state.timeRemaining <= 20 && !timerContainer.classList.contains('urgent')) {
+        timerContainer.classList.add('urgent');
+      }
+
+      if (state.timeRemaining <= 0) {
+        clearInterval(state.timerInterval);
+        finishQuiz('Temps esgotat');
+      }
+    }, 1000);
+  }
+
+  function togglePause() {
+    if (state.quizFinished || !state.timerEnabled) return;
+    state.isPaused = !state.isPaused;
+
+    const pauseOverlay = document.getElementById('pause-overlay');
+    const pauseIcon = document.getElementById('pause-icon');
+    const pauseLabel = document.getElementById('pause-label');
+
+    if (state.isPaused) {
+      if (state.timerInterval) {
+        clearInterval(state.timerInterval);
+        state.timerInterval = null;
+      }
+      if (pauseOverlay) pauseOverlay.classList.remove('hidden');
+      if (pauseIcon) pauseIcon.textContent = '▶️';
+      if (pauseLabel) pauseLabel.textContent = 'Reprendre';
+      playTapSound();
+    } else {
+      if (pauseOverlay) pauseOverlay.classList.add('hidden');
+      if (pauseIcon) pauseIcon.textContent = '⏸️';
+      if (pauseLabel) pauseLabel.textContent = 'Pausa';
+      startTimer();
+      playTapSound();
+    }
+  }
+
+  function updateTimerDisplay() {
+    const mins = Math.floor(state.timeRemaining / 60);
+    const secs = state.timeRemaining % 60;
+    const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    const timerEl = document.getElementById('timer-text');
+    if (timerEl) timerEl.textContent = formatted;
+  }
+
+  function displayCurrentOperation() {
+    if (state.currentIndex >= state.operations.length) {
+      finishQuiz('Totes les operacions completades');
+      return;
+    }
+
+    const op = state.operations[state.currentIndex];
+
+    // Progrés
+    document.getElementById('current-op-index').textContent = op.index;
+    const progressPercent = ((state.currentIndex) / state.totalOps) * 100;
+    document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+    // Operands i símbol
+    document.getElementById('num1').textContent = op.num1;
+    document.getElementById('operator').textContent = op.operator;
+    document.getElementById('num2').textContent = op.num2;
+
+    // Bastida visual
+    renderScaffold(document.getElementById('num1-scaffold'), op.num1);
+    renderScaffold(document.getElementById('num2-scaffold'), op.num2);
+
+    // Opcions de resposta
+    const optionBtns = document.querySelectorAll('.option-btn');
+    optionBtns.forEach((btn, idx) => {
+      const numSpan = btn.querySelector('.option-num');
+      const val = op.options[idx];
+      numSpan.textContent = val;
+      btn.dataset.value = val;
+      btn.classList.remove('pressed');
+      btn.setAttribute('aria-label', `Resposta ${val}`);
+    });
+  }
+
+  function handleAnswerSelected(btnElement) {
+    if (state.isDebouncing || state.quizFinished || state.isPaused) return;
+    state.isDebouncing = true;
+
+    const selectedValue = parseInt(btnElement.dataset.value, 10);
+    const op = state.operations[state.currentIndex];
+    const isCorrect = selectedValue === op.solution;
+
+    if (isCorrect) {
+      state.hitsCount++;
+    }
+
+    btnElement.classList.add('pressed');
+    playTapSound();
+
+    state.userAnswers.push({
+      index: op.index,
+      num1: op.num1,
+      num2: op.num2,
+      operator: op.operator,
+      solution: op.solution,
+      userAnswer: selectedValue,
+      isCorrect: isCorrect
+    });
+
+    setTimeout(() => {
+      btnElement.classList.remove('pressed');
+      state.currentIndex++;
+      state.isDebouncing = false;
+      displayCurrentOperation();
+    }, 180);
+  }
+
+  function finishQuiz(reason = '') {
+    if (state.quizFinished) return;
+    state.quizFinished = true;
+
+    if (state.timerInterval) {
+      clearInterval(state.timerInterval);
+      state.timerInterval = null;
+    }
+
+    playCelebrationSound();
+
+    const timeSpentSeconds = state.timerEnabled
+      ? (state.timeLimitSeconds - Math.max(0, state.timeRemaining))
+      : Math.floor((Date.now() - state.startTime) / 1000);
+
+    const mins = Math.floor(timeSpentSeconds / 60);
+    const secs = timeSpentSeconds % 60;
+    const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+    // Actualitzar panell de resultats
+    const levelCfg = LEVELS_CONFIG[state.level];
+    document.getElementById('results-level-badge').textContent = `${levelCfg.title} · ${levelCfg.name}`;
+    document.getElementById('total-hits').textContent = `${state.hitsCount}`;
+    document.getElementById('total-attempted').textContent = `${state.userAnswers.length} / ${state.totalOps}`;
+    document.getElementById('total-time-spent').textContent = timeStr;
+
+    // Missatge motivador empàtic i respectuós
+    const motivationalEl = document.getElementById('motivational-message');
+    if (state.hitsCount >= 50) {
+      motivationalEl.textContent = '🌟 Resultat excel·lent! Una gran rapidesa i concentració!';
+    } else if (state.hitsCount >= 30) {
+      motivationalEl.textContent = '🎉 Molt bona feina! Has superat un gran nombre d\'operacions!';
+    } else if (state.hitsCount >= 15) {
+      motivationalEl.textContent = '👏 Molt bon esforç! Cada dia l\'automatització és més àgil!';
+    } else {
+      motivationalEl.textContent = '💪 Bon treball! La pràctica constant ens ajuda a avançar!';
+    }
+
+    renderDetailedReview();
+    switchScreen('results');
+  }
+
+  function renderDetailedReview() {
+    const listContainer = document.getElementById('operations-review-list');
+    listContainer.innerHTML = '';
+
+    const detailsContent = document.getElementById('details-content');
+    const toggleBtn = document.getElementById('toggle-details-btn');
+    const indicator = document.getElementById('accordion-indicator');
+    const icon = document.getElementById('accordion-icon');
+
+    detailsContent.classList.add('hidden');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    indicator.textContent = 'Mostra el detall';
+    icon.textContent = '👁️';
+
+    state.userAnswers.forEach(ans => {
+      const item = document.createElement('div');
+      item.className = `review-item ${ans.isCorrect ? 'is-correct' : 'is-wrong'}`;
+
+      item.innerHTML = `
+        <div class="review-header">
+          <span>Op. ${ans.index}</span>
+          <span>${ans.isCorrect ? '✅ Encert' : '❌ Errada'}</span>
+        </div>
+        <div class="review-eq">${ans.num1} ${ans.operator} ${ans.num2} = ${ans.solution}</div>
+        <div class="review-user-ans ${ans.isCorrect ? 'correct-text' : 'wrong-text'}">
+          La teva resposta: <strong>${ans.userAnswer}</strong>
+        </div>
+        ${!ans.isCorrect ? `<div class="review-sol">Solució correcta: ${ans.solution}</div>` : ''}
+      `;
+
+      listContainer.appendChild(item);
+    });
+
+    if (state.userAnswers.length === 0) {
+      listContainer.innerHTML = '<p style="padding: 1rem; color: var(--text-muted);">No s\'ha contestat cap operació.</p>';
+    }
+  }
+
+  // ==========================================================================
+  // BINDING D'ESDEVENIMENTS
+  // ==========================================================================
+  function bindEvents() {
+    // 1. Selector de Nivells (Nivell 1 a Nivell 6)
+    document.querySelectorAll('.level-card-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.level-card-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-checked', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
+
+        const chosenLevel = parseInt(btn.dataset.level, 10);
+        state.level = chosenLevel;
+        updateOperationModesForLevel(chosenLevel);
+        playTapSound();
+      });
+    });
+
+    // 2. Selector de tipus d'operació
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mode-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-checked', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
+        state.mode = btn.dataset.mode;
+        playTapSound();
+      });
+    });
+
+    // 3. Botó d'inici
+    document.getElementById('start-quiz-btn').addEventListener('click', () => {
+      startQuiz();
+    });
+
+    // 4. Opcions de resposta
+    document.querySelectorAll('.option-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        handleAnswerSelected(e.currentTarget);
+      });
+    });
+
+    // 5. Dreceres de teclat (1, 2, 3 per respondre, Espai o P per pausar)
+    window.addEventListener('keydown', (e) => {
+      if (!screens.quiz.classList.contains('active')) return;
+
+      // Tecles de pausa/represa (Espai o lletra P)
+      if (e.key === 'p' || e.key === 'P' || e.key === ' ') {
+        if (state.timerEnabled) {
+          togglePause();
+          e.preventDefault();
+        }
+        return;
+      }
+
+      // Si està en pausa, bloquegem la selecció de respostes
+      if (state.isPaused) return;
+
+      const optionBtns = document.querySelectorAll('.option-btn');
+      if (e.key === '1' && optionBtns[0]) {
+        handleAnswerSelected(optionBtns[0]);
+      } else if (e.key === '2' && optionBtns[1]) {
+        handleAnswerSelected(optionBtns[1]);
+      } else if (e.key === '3' && optionBtns[2]) {
+        handleAnswerSelected(optionBtns[2]);
+      }
+    });
+
+    // 6. Botons de Pausa i Represa
+    const pauseBtn = document.getElementById('pause-btn');
+    if (pauseBtn) pauseBtn.addEventListener('click', togglePause);
+    const resumeBtn = document.getElementById('resume-btn');
+    if (resumeBtn) resumeBtn.addEventListener('click', togglePause);
+
+    // 7. Botó d'aturar abans d'hora
+    document.getElementById('end-early-btn').addEventListener('click', () => {
+      if (confirm('Vols finalitzar la sessió de càlcul ara i consultar el teu resultat?')) {
+        finishQuiz('Finalitzat manualment');
+      }
+    });
+
+    // 7. Botó de tornar a jugar
+    document.getElementById('play-again-btn').addEventListener('click', () => {
+      playTapSound();
+      switchScreen('setup');
+    });
+
+    // 8. Botó d'imprimir informe
+    document.getElementById('print-results-btn').addEventListener('click', () => {
+      const detailsContent = document.getElementById('details-content');
+      detailsContent.classList.remove('hidden');
+      window.print();
+    });
+
+    // 9. Botó Acordió Detalls
+    const toggleBtn = document.getElementById('toggle-details-btn');
+    const detailsContent = document.getElementById('details-content');
+    const indicator = document.getElementById('accordion-indicator');
+    const icon = document.getElementById('accordion-icon');
+
+    toggleBtn.addEventListener('click', () => {
+      const isHidden = detailsContent.classList.toggle('hidden');
+      const isExpanded = !isHidden;
+      toggleBtn.setAttribute('aria-expanded', String(isExpanded));
+      indicator.textContent = isExpanded ? 'Amaga el detall' : 'Mostra el detall';
+      icon.textContent = isExpanded ? '🙈' : '👁️';
+      playTapSound();
+    });
+
+    // 10. Control de so
+    const soundBtn = document.getElementById('sound-toggle-btn');
+    soundBtn.addEventListener('click', () => {
+      state.soundEnabled = !state.soundEnabled;
+      const iconSpan = soundBtn.querySelector('.btn-icon');
+      const labelSpan = soundBtn.querySelector('.btn-label');
+      if (state.soundEnabled) {
+        iconSpan.textContent = '🔊';
+        labelSpan.textContent = 'So';
+        playTapSound();
+      } else {
+        iconSpan.textContent = '🔇';
+        labelSpan.textContent = 'Mut';
+      }
+    });
+
+    // 11. Selector de tema
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    themeBtn.addEventListener('click', () => {
+      cycleTheme();
+      playTapSound();
+    });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (state.theme === 'system') {
+        applyTheme('system');
+      }
+    });
+
+    // 12. Gestió de la finestra modal de Guia Docent
+    const guideModal = document.getElementById('teacher-guide-modal');
+    const openGuideHeaderBtn = document.getElementById('teacher-guide-btn');
+    const openGuideLinkBtn = document.getElementById('open-guide-link-btn');
+    const closeGuideBtn = document.getElementById('close-guide-btn');
+    const closeGuideFooterBtn = document.getElementById('close-guide-footer-btn');
+
+    function openGuide() {
+      if (guideModal && typeof guideModal.showModal === 'function') {
+        guideModal.showModal();
+        playTapSound();
+      }
+    }
+
+    function closeGuide() {
+      if (guideModal && typeof guideModal.close === 'function') {
+        guideModal.close();
+        playTapSound();
+      }
+    }
+
+    if (openGuideHeaderBtn) openGuideHeaderBtn.addEventListener('click', openGuide);
+    if (openGuideLinkBtn) openGuideLinkBtn.addEventListener('click', openGuide);
+    if (closeGuideBtn) closeGuideBtn.addEventListener('click', closeGuide);
+    if (closeGuideFooterBtn) closeGuideFooterBtn.addEventListener('click', closeGuide);
+
+    // Tancar en prémer sobre el fons fosc (backdrop)
+    if (guideModal) {
+      guideModal.addEventListener('click', (e) => {
+        const rect = guideModal.getBoundingClientRect();
+        if (
+          e.clientX < rect.left ||
+          e.clientX > rect.right ||
+          e.clientY < rect.top ||
+          e.clientY > rect.bottom
+        ) {
+          closeGuide();
+        }
+      });
+    }
+  }
+
+  // Inicialització en carregar la pàgina
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('quinzet_theme_pref') || 'system';
+    applyTheme(savedTheme);
+    bindEvents();
+    // Inicialitzar visibilitat de modes per al Nivell 1
+    updateOperationModesForLevel(1);
+  });
+
+})();
+
+</script>
+</body>
+</html>
