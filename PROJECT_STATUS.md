@@ -54,8 +54,8 @@ Desenvolupar una aplicació web interactiva, accessible i inclusiva per a l'entr
 - **Estat del projecte**: Codi publicat al repositori GitHub i servidor local actiu.
 - **Punt exacte**:
   - Repositori GitHub creat i sincronitzat: `https://github.com/elCordones/quinzet_calcul`.
-  - Tots els fitxers pujats a la branca `main` (incloent `quinzet-autonom.html` per a ús autònom fora de línia).
-  - Llesta per activar GitHub Pages i obtenir l'enllaç públic `https://elcordones.github.io/quinzet_calcul/`.
+  - Disseny i incorporació del **favicon vectorial SVG** (`favicon.svg`) amb la marca geomètrica de la 'Q' de Quinzet i operadors matemàtics.
+  - Generada i sincronitzada la versió `quinzet-autonom.html` amb el favicon incrustat en data-URI.
 - **Fitxers clau**:
   - [index.html](file:///C:/Users/David/Desktop/Quinzet%20MESI/index.html): Capçalera, botó de pausa, capa de pausa, modal de guia docent, selector de nivells i resultats.
   - [style.css](file:///C:/Users/David/Desktop/Quinzet%20MESI/style.css): Estils de la capa de pausa (`.pause-overlay`), botó de pausa d'alerta suau, bastida amb alçada uniforme i tema clar/fosc.

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="tailGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+  </defs>
+
+  <!-- Fons arrodonit modern -->
+  <rect width="64" height="64" rx="16" fill="url(#brandGrad)" />
+
+  <!-- Anell de la 'Q' de Quinzet -->
+  <circle cx="30" cy="30" r="16" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" />
+
+  <!-- Cua dinàmica de la 'Q' amb to càlid/taronja inspirat en el Quinzet -->
+  <path d="M35 35 L50 50" stroke="url(#tailGrad)" stroke-width="8" stroke-linecap="round" />
+
+  <!-- Petit signe matemàtic '+' brillant al centre -->
+  <path d="M30 24 v12 M24 30 h12" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+</svg>
