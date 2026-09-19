@@ -51,11 +51,11 @@ Desenvolupar una aplicació web interactiva, accessible i inclusiva per a l'entr
 
 ## 2. Estat Actual i Punt de Control (Checkpoint)
 
-- **Estat del projecte**: Desplegat localment i en execució activa a `http://localhost:8000`.
+- **Estat del projecte**: Codi publicat al repositori GitHub i servidor local actiu.
 - **Punt exacte**:
-  - Incorporació del **sistema de pausa interactiva** per al cronòmetre (`#pause-btn` i `#pause-overlay`), amb represa accessible i dreceres de teclat (`Espai` o `P`).
-  - Alineació geomètrica de la bastida visual consolidada.
-  - Guia docent i modes clar/fosc completament auditats.
+  - Repositori GitHub creat i sincronitzat: `https://github.com/elCordones/quinzet_calcul`.
+  - Tots els fitxers pujats a la branca `main` (incloent `quinzet-autonom.html` per a ús autònom fora de línia).
+  - Llesta per activar GitHub Pages i obtenir l'enllaç públic `https://elcordones.github.io/quinzet_calcul/`.
 - **Fitxers clau**:
   - [index.html](file:///C:/Users/David/Desktop/Quinzet%20MESI/index.html): Capçalera, botó de pausa, capa de pausa, modal de guia docent, selector de nivells i resultats.
   - [style.css](file:///C:/Users/David/Desktop/Quinzet%20MESI/style.css): Estils de la capa de pausa (`.pause-overlay`), botó de pausa d'alerta suau, bastida amb alçada uniforme i tema clar/fosc.
