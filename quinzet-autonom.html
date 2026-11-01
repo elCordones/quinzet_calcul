@@ -302,6 +302,307 @@ body {
   margin-bottom: 0.75rem;
 }
 
+.group-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.group-label-row .group-label {
+  margin-bottom: 0;
+}
+
+.selection-pill-hint {
+  font-size: 0.82rem;
+  font-weight: 800;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--radius-pill);
+}
+
+[data-theme="dark"] .selection-pill-hint {
+  background-color: #1e3a8a;
+  color: #93c5fd;
+  border-color: #60a5fa;
+}
+
+/* ==========================================================================
+   SELECTOR DE MODALITAT D'ACTIVITAT (PESTANYES REPTE QUINZET vs TAULES)
+   ========================================================================== */
+.activity-switcher {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+  padding: 0.45rem;
+  background-color: var(--bg-card-subtle);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+}
+
+.activity-tab-btn {
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  font-family: inherit;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.activity-tab-btn:hover {
+  color: var(--text-main);
+  background-color: var(--bg-card);
+}
+
+.activity-tab-btn.active {
+  background-color: var(--bg-card);
+  border-color: var(--primary);
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .activity-tab-btn.active {
+  background-color: #1e3a8a;
+  border-color: #60a5fa;
+  color: #ffffff;
+}
+
+.tab-icon {
+  font-size: 1.85rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.tab-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.tab-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.tab-subtitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .activity-tab-btn.active .tab-title {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .activity-tab-btn.active .tab-subtitle {
+  color: #cbd5e1;
+}
+
+.activity-setup-panel {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.activity-setup-panel.hidden {
+  display: none;
+}
+
+/* ==========================================================================
+   CONFIGURADOR ESPECÍFIC DE TAULES DE MULTIPLICAR
+   ========================================================================== */
+.tables-presets-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.9rem;
+}
+
+.presets-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  margin-right: 0.2rem;
+}
+
+.preset-chip {
+  background-color: var(--bg-card-subtle);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  padding: 0.35rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.preset-chip:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.preset-chip.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-contrast);
+}
+
+[data-theme="dark"] .preset-chip.active {
+  background-color: #2563eb;
+  border-color: #60a5fa;
+  color: #ffffff;
+}
+
+.tables-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+
+.table-num-btn {
+  background-color: var(--bg-card-subtle);
+  border: 2.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.5rem;
+  font-family: inherit;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  transition: all var(--transition-fast);
+}
+
+.table-num-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.table-num-btn.active {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+[data-theme="dark"] .table-num-btn.active {
+  background-color: #1e3a8a;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px #60a5fa;
+}
+
+.table-badge {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+[data-theme="dark"] .table-num-btn.active .table-badge {
+  color: #93c5fd;
+}
+
+.table-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .table-num-btn.active .table-label {
+  color: #e2e8f0;
+}
+
+.mode-subtext {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+[data-theme="dark"] .mode-btn.active .mode-subtext {
+  color: #cbd5e1;
+}
+
+/* Selector de quantitat d'operacions (10, 20, 30, 60) */
+.ops-count-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.ops-count-btn {
+  background-color: var(--bg-card-subtle);
+  border: 2.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.5rem;
+  font-family: inherit;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  transition: all var(--transition-fast);
+}
+
+.ops-count-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.ops-count-btn.active {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+[data-theme="dark"] .ops-count-btn.active {
+  background-color: #1e3a8a;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px #60a5fa;
+}
+
+.count-num {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+[data-theme="dark"] .ops-count-btn.active .count-num {
+  color: #93c5fd;
+}
+
+.count-desc {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .ops-count-btn.active .count-desc {
+  color: #e2e8f0;
+}
+
 /* Graella de 6 Nivells progressius */
 .levels-grid {
   display: grid;
@@ -928,6 +1229,87 @@ input:focus-visible + .slider {
   border-color: #94a3b8;
 }
 
+/* Bastida visual matricial per a Taules de Multiplicar (Files × Columnes) */
+.matrix-scaffold {
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.15rem;
+  background-color: var(--bg-card-subtle);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.matrix-scaffold.hidden {
+  display: none;
+}
+
+.matrix-caption {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  padding: 0.2rem 0.75rem;
+  border-radius: var(--radius-pill);
+}
+
+.matrix-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.matrix-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-pill);
+}
+
+.matrix-row:nth-child(even) {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+}
+
+[data-theme="dark"] .matrix-row:nth-child(even) {
+  background-color: rgba(37, 99, 235, 0.22);
+  border-color: #60a5fa;
+}
+
+.matrix-row-index {
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: var(--text-muted);
+  min-width: 18px;
+  text-align: right;
+  margin-right: 2px;
+}
+
+.matrix-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: var(--dot-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.matrix-row:nth-child(even) .matrix-dot {
+  background-color: #4f46e5;
+}
+
+[data-theme="dark"] .matrix-row:nth-child(even) .matrix-dot {
+  background-color: #93c5fd;
+}
+
 /* Àrea d'opcions de resposta */
 .answers-container {
   text-align: center;
@@ -1307,6 +1689,9 @@ input:focus-visible + .slider {
   .levels-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .tables-selector-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 
 @media (max-width: 640px) {
@@ -1318,9 +1703,21 @@ input:focus-visible + .slider {
   .header-controls {
     align-self: flex-end;
   }
+
+  .activity-switcher {
+    grid-template-columns: 1fr;
+  }
   
   .levels-grid {
     grid-template-columns: 1fr;
+  }
+
+  .tables-selector-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ops-count-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
   
   .button-selector-grid {
@@ -1648,7 +2045,7 @@ input:focus-visible + .slider {
   }
 }
 
-</style>
+  </style>
 </head>
 <body>
   <header class="app-header">
@@ -1692,79 +2089,210 @@ input:focus-visible + .slider {
           <div class="card-intro-actions">
             <button type="button" id="open-guide-link-btn" class="btn-subtle-guide">
               <span class="guide-icon">ℹ️</span>
-              <span>Característiques dels 6 nivells i operacions</span>
+              <span>Guia docent: Nivells, Taules i Adaptacions NESE</span>
             </button>
           </div>
         </div>
 
-        <!-- 1. Selector de Nivells Progressius (Sense estigmes d'edat) -->
-        <div class="form-group">
-          <label class="group-label">1. Tria el nivell de repte:</label>
-          <div class="levels-grid" role="radiogroup" aria-label="Nivell de càlcul">
-            <button type="button" class="level-card-btn active" data-level="1" role="radio" aria-checked="true">
-              <span class="level-tag">Nivell 1</span>
-              <span class="level-name">Iniciació</span>
-              <span class="level-scope">Sumes i restes fins a 5</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="2" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 2</span>
-              <span class="level-name">Descoberta</span>
-              <span class="level-scope">Sumes i restes fins a 10</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="3" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 3</span>
-              <span class="level-name">Consolidació</span>
-              <span class="level-scope">Nombres fins a 20</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="4" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 4</span>
-              <span class="level-name">Progrés</span>
-              <span class="level-scope">Taules de multiplicar (2 a 5)</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="5" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 5</span>
-              <span class="level-name">Avançat</span>
-              <span class="level-scope">Taules completes i divisions</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="6" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 6</span>
-              <span class="level-name">Mestre</span>
-              <span class="level-scope">Càlcul àgil amb 4 operacions</span>
-            </button>
+        <!-- Selector Superior de Modalitat d'Activitat -->
+        <div class="activity-switcher" role="tablist" aria-label="Modalitat d'activitat">
+          <button type="button" class="activity-tab-btn active" data-activity="quinzet" role="tab" aria-selected="true" aria-controls="quinzet-setup-panel">
+            <span class="tab-icon" aria-hidden="true">🎯</span>
+            <div class="tab-text">
+              <span class="tab-title">Repte Quinzet</span>
+              <span class="tab-subtitle">Càlcul mental per nivells (1 a 6)</span>
+            </div>
+          </button>
+          <button type="button" class="activity-tab-btn" data-activity="tables" role="tab" aria-selected="false" aria-controls="tables-setup-panel">
+            <span class="tab-icon" aria-hidden="true">✖️</span>
+            <div class="tab-text">
+              <span class="tab-title">Practicar Taules</span>
+              <span class="tab-subtitle">Entrenament de les taules de multiplicar</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- PANELL A: CONFIGURACIÓ REPTE QUINZET (NIVELLS 1 A 6) -->
+        <div id="quinzet-setup-panel" class="activity-setup-panel">
+          <!-- 1. Selector de Nivells Progressius (Sense estigmes d'edat) -->
+          <div class="form-group">
+            <label class="group-label">1. Tria el nivell de repte:</label>
+            <div class="levels-grid" role="radiogroup" aria-label="Nivell de càlcul">
+              <button type="button" class="level-card-btn active" data-level="1" role="radio" aria-checked="true">
+                <span class="level-tag">Nivell 1</span>
+                <span class="level-name">Iniciació</span>
+                <span class="level-scope">Sumes i restes fins a 5</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="2" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 2</span>
+                <span class="level-name">Descoberta</span>
+                <span class="level-scope">Sumes i restes fins a 10</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="3" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 3</span>
+                <span class="level-name">Consolidació</span>
+                <span class="level-scope">Nombres fins a 20</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="4" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 4</span>
+                <span class="level-name">Progrés</span>
+                <span class="level-scope">Taules de multiplicar (2 a 5)</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="5" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 5</span>
+                <span class="level-name">Avançat</span>
+                <span class="level-scope">Taules completes i divisions</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="6" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 6</span>
+                <span class="level-name">Mestre</span>
+                <span class="level-scope">Càlcul àgil amb 4 operacions</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Modalitat d'operacions dinàmica segons el nivell -->
+          <div class="form-group">
+            <label class="group-label">2. Quines operacions vols fer?</label>
+            <div id="operation-modes-container" class="button-selector-grid" role="radiogroup" aria-label="Tipus d'operació">
+              <!-- Es renderitza o actualitza per JS segons el nivell -->
+              <button type="button" class="mode-btn active" data-mode="sumes" role="radio" aria-checked="true">
+                <span class="mode-symbol">➕</span>
+                <span class="mode-text">Sumes</span>
+              </button>
+              <button type="button" class="mode-btn" data-mode="restes" role="radio" aria-checked="false">
+                <span class="mode-symbol">➖</span>
+                <span class="mode-text">Restes</span>
+              </button>
+              <button type="button" class="mode-btn" data-mode="mult" role="radio" aria-checked="false" style="display: none;">
+                <span class="mode-symbol">✖️</span>
+                <span class="mode-text">Multiplicacions</span>
+              </button>
+              <button type="button" class="mode-btn" data-mode="div" role="radio" aria-checked="false" style="display: none;">
+                <span class="mode-symbol">➗</span>
+                <span class="mode-text">Divisions</span>
+              </button>
+              <button type="button" class="mode-btn" data-mode="variat" role="radio" aria-checked="false">
+                <span class="mode-symbol">🔀</span>
+                <span class="mode-text">Variat</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- 2. Modalitat d'operacions dinàmica segons el nivell -->
-        <div class="form-group">
-          <label class="group-label">2. Quines operacions vols fer?</label>
-          <div id="operation-modes-container" class="button-selector-grid" role="radiogroup" aria-label="Tipus d'operació">
-            <!-- Es renderitza o actualitza per JS segons el nivell -->
-            <button type="button" class="mode-btn active" data-mode="sumes" role="radio" aria-checked="true">
-              <span class="mode-symbol">➕</span>
-              <span class="mode-text">Sumes</span>
-            </button>
-            <button type="button" class="mode-btn" data-mode="restes" role="radio" aria-checked="false">
-              <span class="mode-symbol">➖</span>
-              <span class="mode-text">Restes</span>
-            </button>
-            <button type="button" class="mode-btn" data-mode="mult" role="radio" aria-checked="false" style="display: none;">
-              <span class="mode-symbol">✖️</span>
-              <span class="mode-text">Multiplicacions</span>
-            </button>
-            <button type="button" class="mode-btn" data-mode="div" role="radio" aria-checked="false" style="display: none;">
-              <span class="mode-symbol">➗</span>
-              <span class="mode-text">Divisions</span>
-            </button>
-            <button type="button" class="mode-btn" data-mode="variat" role="radio" aria-checked="false">
-              <span class="mode-symbol">🔀</span>
-              <span class="mode-text">Variat</span>
-            </button>
+        <!-- PANELL B: CONFIGURACIÓ PRÀCTICA DE TAULES DE MULTIPLICAR -->
+        <div id="tables-setup-panel" class="activity-setup-panel hidden">
+          <!-- 1. Selecció d'una o múltiples taules -->
+          <div class="form-group">
+            <div class="group-label-row">
+              <label class="group-label">1. Tria una o més taules de multiplicar:</label>
+              <span id="selected-tables-summary" class="selection-pill-hint">1 taula seleccionada</span>
+            </div>
+
+            <!-- Dreceres pedagògiques per famílies de taules -->
+            <div class="tables-presets-bar" aria-label="Selecció ràpida per famílies de taules">
+              <span class="presets-label">Famílies:</span>
+              <button type="button" class="preset-chip" data-tables="2,5,10">🌱 Inicials (2, 5, 10)</button>
+              <button type="button" class="preset-chip" data-tables="2,4,8">⚡ Dobles (2, 4, 8)</button>
+              <button type="button" class="preset-chip" data-tables="3,6,9">🔺 Grup del 3 (3, 6, 9)</button>
+              <button type="button" class="preset-chip" data-tables="7,8,9">🔥 Reptes (7, 8, 9)</button>
+              <button type="button" class="preset-chip" data-tables="1,2,3,4,5,6,7,8,9,10">🌟 Totes (1 a 10)</button>
+            </div>
+
+            <!-- Graella de botons de l'1 al 10 -->
+            <div class="tables-selector-grid" role="group" aria-label="Taules de l'1 al 10">
+              <button type="button" class="table-num-btn" data-table="1" aria-pressed="false">
+                <span class="table-badge">×1</span>
+                <span class="table-label">Taula de l'1</span>
+              </button>
+              <button type="button" class="table-num-btn active" data-table="2" aria-pressed="true">
+                <span class="table-badge">×2</span>
+                <span class="table-label">Taula del 2</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="3" aria-pressed="false">
+                <span class="table-badge">×3</span>
+                <span class="table-label">Taula del 3</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="4" aria-pressed="false">
+                <span class="table-badge">×4</span>
+                <span class="table-label">Taula del 4</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="5" aria-pressed="false">
+                <span class="table-badge">×5</span>
+                <span class="table-label">Taula del 5</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="6" aria-pressed="false">
+                <span class="table-badge">×6</span>
+                <span class="table-label">Taula del 6</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="7" aria-pressed="false">
+                <span class="table-badge">×7</span>
+                <span class="table-label">Taula del 7</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="8" aria-pressed="false">
+                <span class="table-badge">×8</span>
+                <span class="table-label">Taula del 8</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="9" aria-pressed="false">
+                <span class="table-badge">×9</span>
+                <span class="table-label">Taula del 9</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="10" aria-pressed="false">
+                <span class="table-badge">×10</span>
+                <span class="table-label">Taula del 10</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Modalitat de pràctica de les taules -->
+          <div class="form-group">
+            <label class="group-label">2. Com vols practicar les taules?</label>
+            <div class="button-selector-grid" role="radiogroup" aria-label="Modalitat de pràctica de taules">
+              <button type="button" class="tables-mode-btn mode-btn active" data-tmode="random" role="radio" aria-checked="true">
+                <span class="mode-symbol">🔀</span>
+                <span class="mode-text">Aleatori</span>
+                <span class="mode-subtext">Ordre barrejat per automatitzar</span>
+              </button>
+              <button type="button" class="tables-mode-btn mode-btn" data-tmode="ordered" role="radio" aria-checked="false">
+                <span class="mode-symbol">📶</span>
+                <span class="mode-text">Ordenat (1 a 10)</span>
+                <span class="mode-subtext">Seqüència pas a pas</span>
+              </button>
+              <button type="button" class="tables-mode-btn mode-btn" data-tmode="missing" role="radio" aria-checked="false">
+                <span class="mode-symbol">❓</span>
+                <span class="mode-text">Factor ocult</span>
+                <span class="mode-subtext">Reversibilitat (ex: 4 × ? = 20)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2b. Selector de quantitat d'operacions -->
+          <div class="form-group">
+            <label class="group-label">3. Quantitat d'operacions de la sessió:</label>
+            <div class="ops-count-grid" role="radiogroup" aria-label="Quantitat d'operacions">
+              <button type="button" class="ops-count-btn" data-count="10" role="radio" aria-checked="false">
+                <span class="count-num">10</span>
+                <span class="count-desc">1 volta ràpida</span>
+              </button>
+              <button type="button" class="ops-count-btn active" data-count="20" role="radio" aria-checked="true">
+                <span class="count-num">20</span>
+                <span class="count-desc">Entrenament curt</span>
+              </button>
+              <button type="button" class="ops-count-btn" data-count="30" role="radio" aria-checked="false">
+                <span class="count-num">30</span>
+                <span class="count-desc">Sessió mitjana</span>
+              </button>
+              <button type="button" class="ops-count-btn" data-count="60" role="radio" aria-checked="false">
+                <span class="count-num">60</span>
+                <span class="count-desc">Repte Quinzet</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- 3. Adaptacions de suport (Cronòmetre i Bastida visual) -->
+        <!-- Adaptacions de suport (Cronòmetre i Bastida visual) -->
         <div class="form-group">
-          <label class="group-label">3. Adaptacions de suport (NESE):</label>
+          <label id="nese-group-label" class="group-label">3. Adaptacions de suport (NESE):</label>
           <div class="switches-grid">
             <!-- Switch Cronòmetre -->
             <label class="switch-card" for="timer-toggle">
@@ -1784,10 +2312,10 @@ input:focus-visible + .slider {
             <!-- Switch Bastida visual -->
             <label class="switch-card" for="scaffold-toggle">
               <div class="switch-info">
-                <span class="switch-icon">🔴</span>
+                <span id="scaffold-icon" class="switch-icon">🔴</span>
                 <div>
-                  <span class="switch-title">Bastida visual (Punts)</span>
-                  <span class="switch-desc">Mostra punts de subitització sota les xifres</span>
+                  <span id="scaffold-title" class="switch-title">Bastida visual (Punts)</span>
+                  <span id="scaffold-desc" class="switch-desc">Mostra punts de subitització sota les xifres</span>
                 </div>
               </div>
               <div class="switch-control">
@@ -1801,7 +2329,7 @@ input:focus-visible + .slider {
         <!-- Botó d'inici -->
         <div class="action-footer">
           <button id="start-quiz-btn" class="btn btn-primary btn-huge" type="button">
-            <span>Començar el Repte (60 operacions)</span>
+            <span id="start-btn-label">Començar el Repte (60 operacions)</span>
             <span class="btn-arrow">➔</span>
           </button>
         </div>
@@ -1822,7 +2350,7 @@ input:focus-visible + .slider {
             <span class="pill-icon">📝</span>
             <span class="pill-label">Op:</span>
             <strong id="current-op-index">1</strong>
-            <span class="pill-total">/ 60</span>
+            <span id="total-op-count" class="pill-total">/ 60</span>
           </div>
 
           <!-- Cronòmetre (visualitzat si està actiu) -->
@@ -1873,11 +2401,14 @@ input:focus-visible + .slider {
               <span class="math-equal">=</span>
             </div>
 
-            <!-- Interrogant -->
+            <!-- Interrogant o Resultat (en mode Factor Ocult) -->
             <div class="number-block mystery-block">
-              <span class="mystery-box">?</span>
+              <span id="result-box" class="mystery-box">?</span>
             </div>
           </div>
+
+          <!-- Bastida Visual Matricial (Agrupaments files × columnes per a Taules de Multiplicar) -->
+          <div id="matrix-scaffold-container" class="matrix-scaffold hidden" aria-hidden="true"></div>
         </div>
 
         <!-- Àrea de selecció de les 3 respostes -->
@@ -2097,6 +2628,42 @@ input:focus-visible + .slider {
             </div>
           </div>
         </section>
+
+        <!-- Secció 3: Nou Mode Practicar Taules de Multiplicar -->
+        <section class="guide-section">
+          <h3 class="guide-section-title">✖️ Mode Específic: «Practicar Taules de Multiplicar»</h3>
+          <p class="guide-section-desc">
+            Dissenyat per a l'entrenament progressiu i sense bloqueig cognitiu de les taules de l'1 al 10, tant en fase de construcció com d'automatització.
+          </p>
+          <div class="guide-cards-grid">
+            <div class="guide-info-card">
+              <h4>1. Aïllament o Famílies de Taules</h4>
+              <p>
+                Es pot seleccionar <strong>una única taula</strong> o combinar-ne diverses amb un clic mitjançant les dreceres didàctiques: <em>Inicials (2, 5, 10)</em>, <em>Dobles (2, 4, 8)</em>, <em>Grup del 3 (3, 6, 9)</em> o <em>Reptes (7, 8, 9)</em>.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>2. Tres Modalitats de Progressió</h4>
+              <p>
+                • <strong>Ordenat (1 a 10):</strong> Per construir l'escala i el comptatge per salts.<br>
+                • <strong>Aleatori:</strong> Per automatitzar la recuperació directa en memòria.<br>
+                • <strong>Factor ocult (<em>4 × ? = 20</em>):</strong> Treballa la reversibilitat i prepara el camí cap a la divisió exacta.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>3. Bastida Visual en Matriu (Files × Columnes)</h4>
+              <p>
+                En activar la <em>Bastida visual</em> dins del mode Taules, es mostra sota l'operació una <strong>matriu d'agrupaments</strong> (<em>a</em> files de <em>b</em> punts) perquè l'alumne comprengui visualment el sentit geomètric del producte.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>4. Dosificació de la Sessió (10, 20, 30 o 60)</h4>
+              <p>
+                Permet ajustar la llargada de l'exercici segons la capacitat d'atenció sostinguda de l'alumne: des d'<strong>1 volta ràpida (10 operacions)</strong> fins al repte complet de <strong>60 operacions</strong>.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
 
       <div class="modal-footer">
@@ -2176,8 +2743,15 @@ input:focus-visible + .slider {
   // ESTAT DE L'APLICACIÓ (Application State)
   // ==========================================================================
   const state = {
+    activityType: 'quinzet', // 'quinzet' | 'tables'
     level: 1,
-    mode: 'sumes',          // 'sumes' | 'restes' | 'mult' | 'div' | 'variat'
+    mode: 'sumes',           // 'sumes' | 'restes' | 'mult' | 'div' | 'variat'
+
+    // Configuració específica per al mode 'tables' (Practicar Taules)
+    selectedTables: [2],     // Array de taules seleccionades (1..10)
+    tablesMode: 'random',    // 'random' | 'ordered' | 'missing'
+    tablesOpsCount: 20,      // 10 | 20 | 30 | 60
+
     timerEnabled: true,
     scaffoldEnabled: false,
     soundEnabled: true,
@@ -2458,25 +3032,29 @@ input:focus-visible + .slider {
     const options = new Set([sol]);
 
     let candidateOffsets;
-    if (op.operator === '×' || op.operator === ':') {
-      // Per a multiplicacions o divisions, afegim distractors coherents
-      candidateOffsets = [-1, 1, -2, 2, -op.num2, op.num2, 3, -3];
+    if (op.isMissingFactor) {
+      // Quan es busca el factor ocult (1..10), els distractors han de ser factors propers >= 1
+      candidateOffsets = [-1, 1, -2, 2, -3, 3];
+    } else if (op.operator === '×' || op.operator === ':') {
+      // Per a multiplicacions o divisions, afegim múltiples de la mateixa taula i variacions properes
+      candidateOffsets = [-op.num1, op.num1, -op.num2, op.num2, -1, 1, -2, 2, 3, -3];
     } else {
       candidateOffsets = [-1, 1, -2, 2, -3, 3];
     }
 
     candidateOffsets.sort(() => Math.random() - 0.5);
 
+    const minAllowed = op.isMissingFactor ? 1 : 0;
     for (const offset of candidateOffsets) {
       const candidate = sol + offset;
-      if (candidate >= 0 && !options.has(candidate)) {
+      if (candidate >= minAllowed && !options.has(candidate)) {
         options.add(candidate);
       }
       if (options.size === 3) break;
     }
 
     // Fallback garantit
-    let fallback = 0;
+    let fallback = minAllowed;
     while (options.size < 3) {
       if (!options.has(fallback)) {
         options.add(fallback);
@@ -2489,10 +3067,9 @@ input:focus-visible + .slider {
     return arr;
   }
 
-  // 6. GENERADOR DE LA LLISTA COMPLETA DE 60 OPERACIONS
+  // 6. GENERADOR DE LA LLISTA D'OPERACIONS DEL REPTE QUINZET
   function generateOperationsList(level, mode, count = 60) {
     const list = [];
-    const cfg = LEVELS_CONFIG[level];
 
     // Determinar els tipus d'operacions possibles per a 'variat'
     let variatPool = ['sumes', 'restes'];
@@ -2531,13 +3108,75 @@ input:focus-visible + .slider {
     return list;
   }
 
+  // 7. GENERADOR D'OPERACIONS PER AL MODE «PRACTICAR TAULES DE MULTIPLICAR»
+  function generateTablesOperationsList(selectedTables, tablesMode, count) {
+    const sortedTables = [...selectedTables].sort((a, b) => a - b);
+    const basePool = [];
+
+    // Construïm el conjunt base de fets numèrics (t × 1 .. t × 10)
+    sortedTables.forEach(t => {
+      for (let m = 1; m <= 10; m++) {
+        basePool.push({ table: t, multiplier: m });
+      }
+    });
+
+    const rawPairs = [];
+
+    if (tablesMode === 'ordered') {
+      // En mode ordenat, recorrem seqüencialment de l'1 al 10 cada taula seleccionada
+      for (let i = 0; i < count; i++) {
+        rawPairs.push(basePool[i % basePool.length]);
+      }
+    } else {
+      // En mode aleatori o factor ocult, barregem baralles completes per garantir
+      // que tots els fets de la taula apareguin de manera equilibrada i sense repeticions consecutives
+      while (rawPairs.length < count) {
+        const deck = [...basePool].sort(() => Math.random() - 0.5);
+        if (rawPairs.length > 0 && deck.length > 1) {
+          const prev = rawPairs[rawPairs.length - 1];
+          if (deck[0].table === prev.table && deck[0].multiplier === prev.multiplier) {
+            const swapIdx = Math.floor(Math.random() * (deck.length - 1)) + 1;
+            const tmp = deck[0];
+            deck[0] = deck[swapIdx];
+            deck[swapIdx] = tmp;
+          }
+        }
+        rawPairs.push(...deck);
+      }
+      rawPairs.length = count;
+    }
+
+    return rawPairs.map((pair, idx) => {
+      const product = pair.table * pair.multiplier;
+      const isMissing = tablesMode === 'missing';
+      const op = {
+        num1: pair.table,
+        num2: pair.multiplier,
+        product: product,
+        operator: '×',
+        isMissingFactor: isMissing,
+        solution: isMissing ? pair.multiplier : product,
+        index: idx + 1
+      };
+      op.options = generateSmartOptions(op);
+      return op;
+    });
+  }
+
   // ==========================================================================
-  // RENDERITZAT DE LA BASTIDA VISUAL
+  // RENDERITZAT DE LA BASTIDA VISUAL (PUNTS LINEALS I MATRIU MULTIPLICATIVA)
   // ==========================================================================
   function renderScaffold(containerEl, num) {
     containerEl.innerHTML = '';
+
+    // En el mode Taules utilitzem la bastida matricial inferior, no la lineal
+    if (state.activityType === 'tables') {
+      containerEl.style.display = 'none';
+      return;
+    }
+
     const currentCfg = LEVELS_CONFIG[state.level];
-    
+
     // Si la bastida no està habilitada o el nivell no l'admet, l'ocultem
     if (!state.scaffoldEnabled || !currentCfg.allowScaffold) {
       containerEl.style.display = 'none';
@@ -2565,8 +3204,59 @@ input:focus-visible + .slider {
     }
   }
 
+  function renderMatrixScaffold(op) {
+    const matrixContainer = document.getElementById('matrix-scaffold-container');
+    if (!matrixContainer) return;
+
+    matrixContainer.innerHTML = '';
+
+    if (state.activityType !== 'tables' || !state.scaffoldEnabled) {
+      matrixContainer.classList.add('hidden');
+      return;
+    }
+
+    matrixContainer.classList.remove('hidden');
+
+    const caption = document.createElement('div');
+    caption.className = 'matrix-caption';
+
+    // Si és factor ocult (ex: 4 × ? = 12), mostrem files de 4 punts perquè pugui comptar quants grups hi ha
+    const rowsCount = op.isMissingFactor ? op.num2 : op.num1;
+    const colsCount = op.isMissingFactor ? op.num1 : op.num2;
+
+    if (op.isMissingFactor) {
+      caption.textContent = `Agrupem ${op.product} punts en files de ${op.num1}:`;
+    } else {
+      caption.textContent = `${op.num1} ${op.num1 === 1 ? 'grup' : 'grups'} de ${op.num2} ${op.num2 === 1 ? 'punt' : 'punts'} (${op.num1} × ${op.num2})`;
+    }
+    matrixContainer.appendChild(caption);
+
+    const grid = document.createElement('div');
+    grid.className = 'matrix-grid';
+
+    for (let r = 1; r <= rowsCount; r++) {
+      const row = document.createElement('div');
+      row.className = 'matrix-row';
+
+      const rowIndex = document.createElement('span');
+      rowIndex.className = 'matrix-row-index';
+      rowIndex.textContent = `${r}.`;
+      row.appendChild(rowIndex);
+
+      for (let c = 0; c < colsCount; c++) {
+        const dot = document.createElement('span');
+        dot.className = 'matrix-dot';
+        row.appendChild(dot);
+      }
+
+      grid.appendChild(row);
+    }
+
+    matrixContainer.appendChild(grid);
+  }
+
   // ==========================================================================
-  // GESTIÓ DE PANTALLES I JOC
+  // GESTIÓ DE PANTALLES I INTERFÍCIE DE CONFIGURACIÓ
   // ==========================================================================
   const screens = {
     setup: document.getElementById('setup-screen'),
@@ -2585,10 +3275,106 @@ input:focus-visible + .slider {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  function formatSelectedTablesLabel(tables, short = false) {
+    const sorted = [...tables].sort((a, b) => a - b);
+    if (sorted.length === 10) {
+      return short ? 'Taules 1..10' : 'Taules de l\'1 al 10';
+    }
+    if (sorted.length === 1) {
+      const t = sorted[0];
+      return t === 1 || t === 11 ? `Taula de l'${t}` : `Taula del ${t}`;
+    }
+    if (short && sorted.length > 4) {
+      return `${sorted.length} taules`;
+    }
+    return `Taules: ${sorted.join(', ')}`;
+  }
+
+  function updateStartButtonLabel() {
+    const startLabelEl = document.getElementById('start-btn-label');
+    if (!startLabelEl) return;
+
+    if (state.activityType === 'tables') {
+      startLabelEl.textContent = `Practicar Taules (${state.tablesOpsCount} operacions)`;
+    } else {
+      startLabelEl.textContent = 'Començar el Repte (60 operacions)';
+    }
+  }
+
+  function updateTablesSelectionUI() {
+    const sorted = [...state.selectedTables].sort((a, b) => a - b);
+    state.selectedTables = sorted;
+
+    // Actualitzar botons de l'1 al 10
+    document.querySelectorAll('.table-num-btn').forEach(btn => {
+      const t = parseInt(btn.dataset.table, 10);
+      const isSelected = sorted.includes(t);
+      btn.classList.toggle('active', isSelected);
+      btn.setAttribute('aria-pressed', String(isSelected));
+    });
+
+    // Actualitzar píndoles de famílies predefinides
+    const currentKey = sorted.join(',');
+    document.querySelectorAll('.preset-chip').forEach(chip => {
+      chip.classList.toggle('active', chip.dataset.tables === currentKey);
+    });
+
+    // Actualitzar resum informatiu
+    const summaryEl = document.getElementById('selected-tables-summary');
+    if (summaryEl) {
+      summaryEl.textContent = sorted.length === 1
+        ? `${formatSelectedTablesLabel(sorted)} seleccionada`
+        : `${sorted.length} taules seleccionades (${sorted.join(', ')})`;
+    }
+  }
+
+  function updateActivityModeUI(activityType) {
+    state.activityType = activityType;
+
+    // 1. Pestanyes superiors
+    document.querySelectorAll('.activity-tab-btn').forEach(tab => {
+      const isActive = tab.dataset.activity === activityType;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+    });
+
+    // 2. Panells de configuració
+    const quinzetPanel = document.getElementById('quinzet-setup-panel');
+    const tablesPanel = document.getElementById('tables-setup-panel');
+    if (quinzetPanel) quinzetPanel.classList.toggle('hidden', activityType !== 'quinzet');
+    if (tablesPanel) tablesPanel.classList.toggle('hidden', activityType !== 'tables');
+
+    // 3. Adaptar etiqueta i disponibilitat de la Bastida Visual NESE
+    const neseGroupLabel = document.getElementById('nese-group-label');
+    const scaffoldCard = document.getElementById('scaffold-toggle').closest('.switch-card');
+    const scaffoldIcon = document.getElementById('scaffold-icon');
+    const scaffoldTitle = document.getElementById('scaffold-title');
+    const scaffoldDesc = document.getElementById('scaffold-desc');
+
+    if (activityType === 'tables') {
+      if (neseGroupLabel) neseGroupLabel.textContent = '4. Adaptacions de suport (NESE):';
+      if (scaffoldIcon) scaffoldIcon.textContent = '🟦';
+      if (scaffoldTitle) scaffoldTitle.textContent = 'Bastida visual (Matriu de grups)';
+      if (scaffoldDesc) scaffoldDesc.textContent = 'Mostra files i columnes de punts per visualitzar el producte';
+      if (scaffoldCard) {
+        scaffoldCard.style.opacity = '1';
+        scaffoldCard.style.pointerEvents = 'auto';
+      }
+    } else {
+      if (neseGroupLabel) neseGroupLabel.textContent = '3. Adaptacions de suport (NESE):';
+      if (scaffoldIcon) scaffoldIcon.textContent = '🔴';
+      if (scaffoldTitle) scaffoldTitle.textContent = 'Bastida visual (Punts)';
+      if (scaffoldDesc) scaffoldDesc.textContent = 'Mostra punts de subitització sota les xifres';
+      updateOperationModesForLevel(state.level);
+    }
+
+    updateStartButtonLabel();
+  }
+
   // Actualitza la visibilitat dels botons de modalitat segons el nivell seleccionat
   function updateOperationModesForLevel(level) {
     const cfg = LEVELS_CONFIG[level];
-    const modeBtns = document.querySelectorAll('.mode-btn');
+    const modeBtns = document.querySelectorAll('#operation-modes-container .mode-btn');
 
     let isCurrentModeValid = false;
 
@@ -2609,36 +3395,31 @@ input:focus-visible + .slider {
     // Si el mode seleccionat anteriorment ja no és vàlid (ex: divisions al nivell 1), revertim a sumes
     if (!isCurrentModeValid) {
       state.mode = 'sumes';
-      const defaultBtn = document.querySelector('.mode-btn[data-mode="sumes"]');
+      const defaultBtn = document.querySelector('#operation-modes-container .mode-btn[data-mode="sumes"]');
       if (defaultBtn) {
         defaultBtn.classList.add('active');
         defaultBtn.setAttribute('aria-checked', 'true');
       }
     }
 
-    // Gestionar la disponibilitat del switch de bastida visual
-    const scaffoldCard = document.getElementById('scaffold-toggle').closest('.switch-card');
-    if (scaffoldCard) {
-      if (cfg.allowScaffold) {
-        scaffoldCard.style.opacity = '1';
-        scaffoldCard.style.pointerEvents = 'auto';
-      } else {
-        scaffoldCard.style.opacity = '0.5';
-        scaffoldCard.style.pointerEvents = 'none';
-        document.getElementById('scaffold-toggle').checked = false;
+    // Gestionar la disponibilitat del switch de bastida visual en mode Quinzet
+    if (state.activityType === 'quinzet') {
+      const scaffoldCard = document.getElementById('scaffold-toggle').closest('.switch-card');
+      if (scaffoldCard) {
+        if (cfg.allowScaffold) {
+          scaffoldCard.style.opacity = '1';
+          scaffoldCard.style.pointerEvents = 'auto';
+        } else {
+          scaffoldCard.style.opacity = '0.5';
+          scaffoldCard.style.pointerEvents = 'none';
+          document.getElementById('scaffold-toggle').checked = false;
+        }
       }
     }
   }
 
   function startQuiz() {
     initAudio();
-
-    // Llegir configuració de la pantalla de setup
-    const activeLevelBtn = document.querySelector('.level-card-btn.active');
-    state.level = activeLevelBtn ? parseInt(activeLevelBtn.dataset.level, 10) : 1;
-
-    const activeModeBtn = document.querySelector('.mode-btn.active');
-    state.mode = activeModeBtn ? activeModeBtn.dataset.mode : 'sumes';
 
     state.timerEnabled = document.getElementById('timer-toggle').checked;
     state.scaffoldEnabled = document.getElementById('scaffold-toggle').checked;
@@ -2649,12 +3430,33 @@ input:focus-visible + .slider {
     state.hitsCount = 0;
     state.quizFinished = false;
     state.isDebouncing = false;
-    state.operations = generateOperationsList(state.level, state.mode, state.totalOps);
-    state.startTime = Date.now();
 
-    // Actualitzar etiquetes de la pantalla de joc
-    const levelCfg = LEVELS_CONFIG[state.level];
-    document.getElementById('current-level-display').textContent = levelCfg.title;
+    if (state.activityType === 'tables') {
+      state.totalOps = state.tablesOpsCount;
+      state.operations = generateTablesOperationsList(
+        state.selectedTables,
+        state.tablesMode,
+        state.totalOps
+      );
+      document.getElementById('current-level-display').textContent = formatSelectedTablesLabel(state.selectedTables, true);
+    } else {
+      const activeLevelBtn = document.querySelector('.level-card-btn.active');
+      state.level = activeLevelBtn ? parseInt(activeLevelBtn.dataset.level, 10) : 1;
+
+      const activeModeBtn = document.querySelector('#operation-modes-container .mode-btn.active');
+      state.mode = activeModeBtn ? activeModeBtn.dataset.mode : 'sumes';
+
+      state.totalOps = 60;
+      state.operations = generateOperationsList(state.level, state.mode, state.totalOps);
+
+      const levelCfg = LEVELS_CONFIG[state.level];
+      document.getElementById('current-level-display').textContent = levelCfg.title;
+    }
+
+    const totalOpCountEl = document.getElementById('total-op-count');
+    if (totalOpCountEl) totalOpCountEl.textContent = `/ ${state.totalOps}`;
+
+    state.startTime = Date.now();
 
     // Configurar cronòmetre i botó de pausa
     const timerContainer = document.getElementById('timer-display-container');
@@ -2752,14 +3554,35 @@ input:focus-visible + .slider {
     const progressPercent = ((state.currentIndex) / state.totalOps) * 100;
     document.getElementById('progress-bar').style.width = `${progressPercent}%`;
 
-    // Operands i símbol
-    document.getElementById('num1').textContent = op.num1;
-    document.getElementById('operator').textContent = op.operator;
-    document.getElementById('num2').textContent = op.num2;
+    // Operands, símbol i caixa d'incògnita (suport per a Factor Ocult: a × ? = c)
+    const num1El = document.getElementById('num1');
+    const operatorEl = document.getElementById('operator');
+    const num2El = document.getElementById('num2');
+    const resultBoxEl = document.getElementById('result-box');
 
-    // Bastida visual
+    num1El.textContent = op.num1;
+    operatorEl.textContent = op.operator;
+
+    if (op.isMissingFactor) {
+      num2El.textContent = '?';
+      num2El.className = 'mystery-box';
+      if (resultBoxEl) {
+        resultBoxEl.textContent = op.product;
+        resultBoxEl.className = 'math-num';
+      }
+    } else {
+      num2El.textContent = op.num2;
+      num2El.className = 'math-num';
+      if (resultBoxEl) {
+        resultBoxEl.textContent = '?';
+        resultBoxEl.className = 'mystery-box';
+      }
+    }
+
+    // Bastida visual lineal (mode Quinzet Nivells 1-3) i matricial (mode Taules)
     renderScaffold(document.getElementById('num1-scaffold'), op.num1);
     renderScaffold(document.getElementById('num2-scaffold'), op.num2);
+    renderMatrixScaffold(op);
 
     // Opcions de resposta
     const optionBtns = document.querySelectorAll('.option-btn');
@@ -2792,6 +3615,8 @@ input:focus-visible + .slider {
       index: op.index,
       num1: op.num1,
       num2: op.num2,
+      product: op.product,
+      isMissingFactor: Boolean(op.isMissingFactor),
       operator: op.operator,
       solution: op.solution,
       userAnswer: selectedValue,
@@ -2826,19 +3651,32 @@ input:focus-visible + .slider {
     const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
     // Actualitzar panell de resultats
-    const levelCfg = LEVELS_CONFIG[state.level];
-    document.getElementById('results-level-badge').textContent = `${levelCfg.title} · ${levelCfg.name}`;
+    const resultsBadgeEl = document.getElementById('results-level-badge');
+    if (state.activityType === 'tables') {
+      const modeNames = {
+        random: 'Aleatori',
+        ordered: 'Ordenat (1 a 10)',
+        missing: 'Factor ocult'
+      };
+      resultsBadgeEl.textContent = `${formatSelectedTablesLabel(state.selectedTables, false)} · ${modeNames[state.tablesMode] || 'Aleatori'}`;
+    } else {
+      const levelCfg = LEVELS_CONFIG[state.level];
+      resultsBadgeEl.textContent = `${levelCfg.title} · ${levelCfg.name}`;
+    }
+
     document.getElementById('total-hits').textContent = `${state.hitsCount}`;
     document.getElementById('total-attempted').textContent = `${state.userAnswers.length} / ${state.totalOps}`;
     document.getElementById('total-time-spent').textContent = timeStr;
 
-    // Missatge motivador empàtic i respectuós
+    // Missatge motivador proporcional al total d'operacions de la sessió
     const motivationalEl = document.getElementById('motivational-message');
-    if (state.hitsCount >= 50) {
+    const hitRatio = state.totalOps > 0 ? (state.hitsCount / state.totalOps) : 0;
+
+    if (hitRatio >= 0.83) {
       motivationalEl.textContent = '🌟 Resultat excel·lent! Una gran rapidesa i concentració!';
-    } else if (state.hitsCount >= 30) {
+    } else if (hitRatio >= 0.50) {
       motivationalEl.textContent = '🎉 Molt bona feina! Has superat un gran nombre d\'operacions!';
-    } else if (state.hitsCount >= 15) {
+    } else if (hitRatio >= 0.25) {
       motivationalEl.textContent = '👏 Molt bon esforç! Cada dia l\'automatització és més àgil!';
     } else {
       motivationalEl.textContent = '💪 Bon treball! La pràctica constant ens ajuda a avançar!';
@@ -2866,12 +3704,16 @@ input:focus-visible + .slider {
       const item = document.createElement('div');
       item.className = `review-item ${ans.isCorrect ? 'is-correct' : 'is-wrong'}`;
 
+      const eqText = ans.isMissingFactor
+        ? `${ans.num1} × [${ans.solution}] = ${ans.product}`
+        : `${ans.num1} ${ans.operator} ${ans.num2} = ${ans.solution}`;
+
       item.innerHTML = `
         <div class="review-header">
           <span>Op. ${ans.index}</span>
           <span>${ans.isCorrect ? '✅ Encert' : '❌ Errada'}</span>
         </div>
-        <div class="review-eq">${ans.num1} ${ans.operator} ${ans.num2} = ${ans.solution}</div>
+        <div class="review-eq">${eqText}</div>
         <div class="review-user-ans ${ans.isCorrect ? 'correct-text' : 'wrong-text'}">
           La teva resposta: <strong>${ans.userAnswer}</strong>
         </div>
@@ -2890,6 +3732,15 @@ input:focus-visible + .slider {
   // BINDING D'ESDEVENIMENTS
   // ==========================================================================
   function bindEvents() {
+    // 0. Selector superior de Modalitat d'Activitat (Repte Quinzet vs Practicar Taules)
+    document.querySelectorAll('.activity-tab-btn').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const chosenActivity = tab.dataset.activity;
+        updateActivityModeUI(chosenActivity);
+        playTapSound();
+      });
+    });
+
     // 1. Selector de Nivells (Nivell 1 a Nivell 6)
     document.querySelectorAll('.level-card-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -2907,16 +3758,81 @@ input:focus-visible + .slider {
       });
     });
 
-    // 2. Selector de tipus d'operació
-    document.querySelectorAll('.mode-btn').forEach(btn => {
+    // 2. Selector de tipus d'operació (Mode Quinzet)
+    document.querySelectorAll('#operation-modes-container .mode-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.mode-btn').forEach(b => {
+        document.querySelectorAll('#operation-modes-container .mode-btn').forEach(b => {
           b.classList.remove('active');
           b.setAttribute('aria-checked', 'false');
         });
         btn.classList.add('active');
         btn.setAttribute('aria-checked', 'true');
         state.mode = btn.dataset.mode;
+        playTapSound();
+      });
+    });
+
+    // 2b. Configurador del Mode «Practicar Taules»
+    // Botons individuals de taula (1..10, selecció múltiple amb mínim 1 activa)
+    document.querySelectorAll('.table-num-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tableNum = parseInt(btn.dataset.table, 10);
+        const exists = state.selectedTables.includes(tableNum);
+
+        if (exists) {
+          // Garantim que sempre quedi com a mínim 1 taula seleccionada
+          if (state.selectedTables.length > 1) {
+            state.selectedTables = state.selectedTables.filter(t => t !== tableNum);
+          }
+        } else {
+          state.selectedTables.push(tableNum);
+        }
+
+        updateTablesSelectionUI();
+        playTapSound();
+      });
+    });
+
+    // Dreceres per famílies de taules
+    document.querySelectorAll('.preset-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const tablesArr = chip.dataset.tables
+          .split(',')
+          .map(n => parseInt(n.trim(), 10))
+          .filter(n => !isNaN(n));
+        if (tablesArr.length > 0) {
+          state.selectedTables = tablesArr;
+          updateTablesSelectionUI();
+          playTapSound();
+        }
+      });
+    });
+
+    // Modalitat de pràctica de taules (Aleatori | Ordenat | Factor ocult)
+    document.querySelectorAll('.tables-mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tables-mode-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-checked', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
+        state.tablesMode = btn.dataset.tmode;
+        playTapSound();
+      });
+    });
+
+    // Quantitat d'operacions en el mode Taules (10, 20, 30, 60)
+    document.querySelectorAll('.ops-count-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.ops-count-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-checked', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
+        state.tablesOpsCount = parseInt(btn.dataset.count, 10) || 20;
+        updateStartButtonLabel();
         playTapSound();
       });
     });
@@ -3076,12 +3992,14 @@ input:focus-visible + .slider {
     const savedTheme = localStorage.getItem('quinzet_theme_pref') || 'system';
     applyTheme(savedTheme);
     bindEvents();
-    // Inicialitzar visibilitat de modes per al Nivell 1
+    // Inicialitzar visibilitat de modes i configurador de taules
+    updateTablesSelectionUI();
     updateOperationModesForLevel(1);
+    updateActivityModeUI('quinzet');
   });
 
 })();
 
-</script>
+  </script>
 </body>
 </html>

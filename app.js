@@ -68,8 +68,15 @@
   // ESTAT DE L'APLICACIÓ (Application State)
   // ==========================================================================
   const state = {
+    activityType: 'quinzet', // 'quinzet' | 'tables'
     level: 1,
-    mode: 'sumes',          // 'sumes' | 'restes' | 'mult' | 'div' | 'variat'
+    mode: 'sumes',           // 'sumes' | 'restes' | 'mult' | 'div' | 'variat'
+
+    // Configuració específica per al mode 'tables' (Practicar Taules)
+    selectedTables: [2],     // Array de taules seleccionades (1..10)
+    tablesMode: 'random',    // 'random' | 'ordered' | 'missing'
+    tablesOpsCount: 20,      // 10 | 20 | 30 | 60
+
     timerEnabled: true,
     scaffoldEnabled: false,
     soundEnabled: true,
@@ -350,25 +357,29 @@
     const options = new Set([sol]);
 
     let candidateOffsets;
-    if (op.operator === '×' || op.operator === ':') {
-      // Per a multiplicacions o divisions, afegim distractors coherents
-      candidateOffsets = [-1, 1, -2, 2, -op.num2, op.num2, 3, -3];
+    if (op.isMissingFactor) {
+      // Quan es busca el factor ocult (1..10), els distractors han de ser factors propers >= 1
+      candidateOffsets = [-1, 1, -2, 2, -3, 3];
+    } else if (op.operator === '×' || op.operator === ':') {
+      // Per a multiplicacions o divisions, afegim múltiples de la mateixa taula i variacions properes
+      candidateOffsets = [-op.num1, op.num1, -op.num2, op.num2, -1, 1, -2, 2, 3, -3];
     } else {
       candidateOffsets = [-1, 1, -2, 2, -3, 3];
     }
 
     candidateOffsets.sort(() => Math.random() - 0.5);
 
+    const minAllowed = op.isMissingFactor ? 1 : 0;
     for (const offset of candidateOffsets) {
       const candidate = sol + offset;
-      if (candidate >= 0 && !options.has(candidate)) {
+      if (candidate >= minAllowed && !options.has(candidate)) {
         options.add(candidate);
       }
       if (options.size === 3) break;
     }
 
     // Fallback garantit
-    let fallback = 0;
+    let fallback = minAllowed;
     while (options.size < 3) {
       if (!options.has(fallback)) {
         options.add(fallback);
@@ -381,10 +392,9 @@
     return arr;
   }
 
-  // 6. GENERADOR DE LA LLISTA COMPLETA DE 60 OPERACIONS
+  // 6. GENERADOR DE LA LLISTA D'OPERACIONS DEL REPTE QUINZET
   function generateOperationsList(level, mode, count = 60) {
     const list = [];
-    const cfg = LEVELS_CONFIG[level];
 
     // Determinar els tipus d'operacions possibles per a 'variat'
     let variatPool = ['sumes', 'restes'];
@@ -423,13 +433,75 @@
     return list;
   }
 
+  // 7. GENERADOR D'OPERACIONS PER AL MODE «PRACTICAR TAULES DE MULTIPLICAR»
+  function generateTablesOperationsList(selectedTables, tablesMode, count) {
+    const sortedTables = [...selectedTables].sort((a, b) => a - b);
+    const basePool = [];
+
+    // Construïm el conjunt base de fets numèrics (t × 1 .. t × 10)
+    sortedTables.forEach(t => {
+      for (let m = 1; m <= 10; m++) {
+        basePool.push({ table: t, multiplier: m });
+      }
+    });
+
+    const rawPairs = [];
+
+    if (tablesMode === 'ordered') {
+      // En mode ordenat, recorrem seqüencialment de l'1 al 10 cada taula seleccionada
+      for (let i = 0; i < count; i++) {
+        rawPairs.push(basePool[i % basePool.length]);
+      }
+    } else {
+      // En mode aleatori o factor ocult, barregem baralles completes per garantir
+      // que tots els fets de la taula apareguin de manera equilibrada i sense repeticions consecutives
+      while (rawPairs.length < count) {
+        const deck = [...basePool].sort(() => Math.random() - 0.5);
+        if (rawPairs.length > 0 && deck.length > 1) {
+          const prev = rawPairs[rawPairs.length - 1];
+          if (deck[0].table === prev.table && deck[0].multiplier === prev.multiplier) {
+            const swapIdx = Math.floor(Math.random() * (deck.length - 1)) + 1;
+            const tmp = deck[0];
+            deck[0] = deck[swapIdx];
+            deck[swapIdx] = tmp;
+          }
+        }
+        rawPairs.push(...deck);
+      }
+      rawPairs.length = count;
+    }
+
+    return rawPairs.map((pair, idx) => {
+      const product = pair.table * pair.multiplier;
+      const isMissing = tablesMode === 'missing';
+      const op = {
+        num1: pair.table,
+        num2: pair.multiplier,
+        product: product,
+        operator: '×',
+        isMissingFactor: isMissing,
+        solution: isMissing ? pair.multiplier : product,
+        index: idx + 1
+      };
+      op.options = generateSmartOptions(op);
+      return op;
+    });
+  }
+
   // ==========================================================================
-  // RENDERITZAT DE LA BASTIDA VISUAL
+  // RENDERITZAT DE LA BASTIDA VISUAL (PUNTS LINEALS I MATRIU MULTIPLICATIVA)
   // ==========================================================================
   function renderScaffold(containerEl, num) {
     containerEl.innerHTML = '';
+
+    // En el mode Taules utilitzem la bastida matricial inferior, no la lineal
+    if (state.activityType === 'tables') {
+      containerEl.style.display = 'none';
+      return;
+    }
+
     const currentCfg = LEVELS_CONFIG[state.level];
-    
+
     // Si la bastida no està habilitada o el nivell no l'admet, l'ocultem
     if (!state.scaffoldEnabled || !currentCfg.allowScaffold) {
       containerEl.style.display = 'none';
@@ -457,8 +529,59 @@
     }
   }
 
+  function renderMatrixScaffold(op) {
+    const matrixContainer = document.getElementById('matrix-scaffold-container');
+    if (!matrixContainer) return;
+
+    matrixContainer.innerHTML = '';
+
+    if (state.activityType !== 'tables' || !state.scaffoldEnabled) {
+      matrixContainer.classList.add('hidden');
+      return;
+    }
+
+    matrixContainer.classList.remove('hidden');
+
+    const caption = document.createElement('div');
+    caption.className = 'matrix-caption';
+
+    // Si és factor ocult (ex: 4 × ? = 12), mostrem files de 4 punts perquè pugui comptar quants grups hi ha
+    const rowsCount = op.isMissingFactor ? op.num2 : op.num1;
+    const colsCount = op.isMissingFactor ? op.num1 : op.num2;
+
+    if (op.isMissingFactor) {
+      caption.textContent = `Agrupem ${op.product} punts en files de ${op.num1}:`;
+    } else {
+      caption.textContent = `${op.num1} ${op.num1 === 1 ? 'grup' : 'grups'} de ${op.num2} ${op.num2 === 1 ? 'punt' : 'punts'} (${op.num1} × ${op.num2})`;
+    }
+    matrixContainer.appendChild(caption);
+
+    const grid = document.createElement('div');
+    grid.className = 'matrix-grid';
+
+    for (let r = 1; r <= rowsCount; r++) {
+      const row = document.createElement('div');
+      row.className = 'matrix-row';
+
+      const rowIndex = document.createElement('span');
+      rowIndex.className = 'matrix-row-index';
+      rowIndex.textContent = `${r}.`;
+      row.appendChild(rowIndex);
+
+      for (let c = 0; c < colsCount; c++) {
+        const dot = document.createElement('span');
+        dot.className = 'matrix-dot';
+        row.appendChild(dot);
+      }
+
+      grid.appendChild(row);
+    }
+
+    matrixContainer.appendChild(grid);
+  }
+
   // ==========================================================================
-  // GESTIÓ DE PANTALLES I JOC
+  // GESTIÓ DE PANTALLES I INTERFÍCIE DE CONFIGURACIÓ
   // ==========================================================================
   const screens = {
     setup: document.getElementById('setup-screen'),
@@ -477,10 +600,106 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  function formatSelectedTablesLabel(tables, short = false) {
+    const sorted = [...tables].sort((a, b) => a - b);
+    if (sorted.length === 10) {
+      return short ? 'Taules 1..10' : 'Taules de l\'1 al 10';
+    }
+    if (sorted.length === 1) {
+      const t = sorted[0];
+      return t === 1 || t === 11 ? `Taula de l'${t}` : `Taula del ${t}`;
+    }
+    if (short && sorted.length > 4) {
+      return `${sorted.length} taules`;
+    }
+    return `Taules: ${sorted.join(', ')}`;
+  }
+
+  function updateStartButtonLabel() {
+    const startLabelEl = document.getElementById('start-btn-label');
+    if (!startLabelEl) return;
+
+    if (state.activityType === 'tables') {
+      startLabelEl.textContent = `Practicar Taules (${state.tablesOpsCount} operacions)`;
+    } else {
+      startLabelEl.textContent = 'Començar el Repte (60 operacions)';
+    }
+  }
+
+  function updateTablesSelectionUI() {
+    const sorted = [...state.selectedTables].sort((a, b) => a - b);
+    state.selectedTables = sorted;
+
+    // Actualitzar botons de l'1 al 10
+    document.querySelectorAll('.table-num-btn').forEach(btn => {
+      const t = parseInt(btn.dataset.table, 10);
+      const isSelected = sorted.includes(t);
+      btn.classList.toggle('active', isSelected);
+      btn.setAttribute('aria-pressed', String(isSelected));
+    });
+
+    // Actualitzar píndoles de famílies predefinides
+    const currentKey = sorted.join(',');
+    document.querySelectorAll('.preset-chip').forEach(chip => {
+      chip.classList.toggle('active', chip.dataset.tables === currentKey);
+    });
+
+    // Actualitzar resum informatiu
+    const summaryEl = document.getElementById('selected-tables-summary');
+    if (summaryEl) {
+      summaryEl.textContent = sorted.length === 1
+        ? `${formatSelectedTablesLabel(sorted)} seleccionada`
+        : `${sorted.length} taules seleccionades (${sorted.join(', ')})`;
+    }
+  }
+
+  function updateActivityModeUI(activityType) {
+    state.activityType = activityType;
+
+    // 1. Pestanyes superiors
+    document.querySelectorAll('.activity-tab-btn').forEach(tab => {
+      const isActive = tab.dataset.activity === activityType;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+    });
+
+    // 2. Panells de configuració
+    const quinzetPanel = document.getElementById('quinzet-setup-panel');
+    const tablesPanel = document.getElementById('tables-setup-panel');
+    if (quinzetPanel) quinzetPanel.classList.toggle('hidden', activityType !== 'quinzet');
+    if (tablesPanel) tablesPanel.classList.toggle('hidden', activityType !== 'tables');
+
+    // 3. Adaptar etiqueta i disponibilitat de la Bastida Visual NESE
+    const neseGroupLabel = document.getElementById('nese-group-label');
+    const scaffoldCard = document.getElementById('scaffold-toggle').closest('.switch-card');
+    const scaffoldIcon = document.getElementById('scaffold-icon');
+    const scaffoldTitle = document.getElementById('scaffold-title');
+    const scaffoldDesc = document.getElementById('scaffold-desc');
+
+    if (activityType === 'tables') {
+      if (neseGroupLabel) neseGroupLabel.textContent = '4. Adaptacions de suport (NESE):';
+      if (scaffoldIcon) scaffoldIcon.textContent = '🟦';
+      if (scaffoldTitle) scaffoldTitle.textContent = 'Bastida visual (Matriu de grups)';
+      if (scaffoldDesc) scaffoldDesc.textContent = 'Mostra files i columnes de punts per visualitzar el producte';
+      if (scaffoldCard) {
+        scaffoldCard.style.opacity = '1';
+        scaffoldCard.style.pointerEvents = 'auto';
+      }
+    } else {
+      if (neseGroupLabel) neseGroupLabel.textContent = '3. Adaptacions de suport (NESE):';
+      if (scaffoldIcon) scaffoldIcon.textContent = '🔴';
+      if (scaffoldTitle) scaffoldTitle.textContent = 'Bastida visual (Punts)';
+      if (scaffoldDesc) scaffoldDesc.textContent = 'Mostra punts de subitització sota les xifres';
+      updateOperationModesForLevel(state.level);
+    }
+
+    updateStartButtonLabel();
+  }
+
   // Actualitza la visibilitat dels botons de modalitat segons el nivell seleccionat
   function updateOperationModesForLevel(level) {
     const cfg = LEVELS_CONFIG[level];
-    const modeBtns = document.querySelectorAll('.mode-btn');
+    const modeBtns = document.querySelectorAll('#operation-modes-container .mode-btn');
 
     let isCurrentModeValid = false;
 
@@ -501,36 +720,31 @@
     // Si el mode seleccionat anteriorment ja no és vàlid (ex: divisions al nivell 1), revertim a sumes
     if (!isCurrentModeValid) {
       state.mode = 'sumes';
-      const defaultBtn = document.querySelector('.mode-btn[data-mode="sumes"]');
+      const defaultBtn = document.querySelector('#operation-modes-container .mode-btn[data-mode="sumes"]');
       if (defaultBtn) {
         defaultBtn.classList.add('active');
         defaultBtn.setAttribute('aria-checked', 'true');
       }
     }
 
-    // Gestionar la disponibilitat del switch de bastida visual
-    const scaffoldCard = document.getElementById('scaffold-toggle').closest('.switch-card');
-    if (scaffoldCard) {
-      if (cfg.allowScaffold) {
-        scaffoldCard.style.opacity = '1';
-        scaffoldCard.style.pointerEvents = 'auto';
-      } else {
-        scaffoldCard.style.opacity = '0.5';
-        scaffoldCard.style.pointerEvents = 'none';
-        document.getElementById('scaffold-toggle').checked = false;
+    // Gestionar la disponibilitat del switch de bastida visual en mode Quinzet
+    if (state.activityType === 'quinzet') {
+      const scaffoldCard = document.getElementById('scaffold-toggle').closest('.switch-card');
+      if (scaffoldCard) {
+        if (cfg.allowScaffold) {
+          scaffoldCard.style.opacity = '1';
+          scaffoldCard.style.pointerEvents = 'auto';
+        } else {
+          scaffoldCard.style.opacity = '0.5';
+          scaffoldCard.style.pointerEvents = 'none';
+          document.getElementById('scaffold-toggle').checked = false;
+        }
       }
     }
   }
 
   function startQuiz() {
     initAudio();
-
-    // Llegir configuració de la pantalla de setup
-    const activeLevelBtn = document.querySelector('.level-card-btn.active');
-    state.level = activeLevelBtn ? parseInt(activeLevelBtn.dataset.level, 10) : 1;
-
-    const activeModeBtn = document.querySelector('.mode-btn.active');
-    state.mode = activeModeBtn ? activeModeBtn.dataset.mode : 'sumes';
 
     state.timerEnabled = document.getElementById('timer-toggle').checked;
     state.scaffoldEnabled = document.getElementById('scaffold-toggle').checked;
@@ -541,12 +755,33 @@
     state.hitsCount = 0;
     state.quizFinished = false;
     state.isDebouncing = false;
-    state.operations = generateOperationsList(state.level, state.mode, state.totalOps);
-    state.startTime = Date.now();
 
-    // Actualitzar etiquetes de la pantalla de joc
-    const levelCfg = LEVELS_CONFIG[state.level];
-    document.getElementById('current-level-display').textContent = levelCfg.title;
+    if (state.activityType === 'tables') {
+      state.totalOps = state.tablesOpsCount;
+      state.operations = generateTablesOperationsList(
+        state.selectedTables,
+        state.tablesMode,
+        state.totalOps
+      );
+      document.getElementById('current-level-display').textContent = formatSelectedTablesLabel(state.selectedTables, true);
+    } else {
+      const activeLevelBtn = document.querySelector('.level-card-btn.active');
+      state.level = activeLevelBtn ? parseInt(activeLevelBtn.dataset.level, 10) : 1;
+
+      const activeModeBtn = document.querySelector('#operation-modes-container .mode-btn.active');
+      state.mode = activeModeBtn ? activeModeBtn.dataset.mode : 'sumes';
+
+      state.totalOps = 60;
+      state.operations = generateOperationsList(state.level, state.mode, state.totalOps);
+
+      const levelCfg = LEVELS_CONFIG[state.level];
+      document.getElementById('current-level-display').textContent = levelCfg.title;
+    }
+
+    const totalOpCountEl = document.getElementById('total-op-count');
+    if (totalOpCountEl) totalOpCountEl.textContent = `/ ${state.totalOps}`;
+
+    state.startTime = Date.now();
 
     // Configurar cronòmetre i botó de pausa
     const timerContainer = document.getElementById('timer-display-container');
@@ -644,14 +879,35 @@
     const progressPercent = ((state.currentIndex) / state.totalOps) * 100;
     document.getElementById('progress-bar').style.width = `${progressPercent}%`;
 
-    // Operands i símbol
-    document.getElementById('num1').textContent = op.num1;
-    document.getElementById('operator').textContent = op.operator;
-    document.getElementById('num2').textContent = op.num2;
+    // Operands, símbol i caixa d'incògnita (suport per a Factor Ocult: a × ? = c)
+    const num1El = document.getElementById('num1');
+    const operatorEl = document.getElementById('operator');
+    const num2El = document.getElementById('num2');
+    const resultBoxEl = document.getElementById('result-box');
 
-    // Bastida visual
+    num1El.textContent = op.num1;
+    operatorEl.textContent = op.operator;
+
+    if (op.isMissingFactor) {
+      num2El.textContent = '?';
+      num2El.className = 'mystery-box';
+      if (resultBoxEl) {
+        resultBoxEl.textContent = op.product;
+        resultBoxEl.className = 'math-num';
+      }
+    } else {
+      num2El.textContent = op.num2;
+      num2El.className = 'math-num';
+      if (resultBoxEl) {
+        resultBoxEl.textContent = '?';
+        resultBoxEl.className = 'mystery-box';
+      }
+    }
+
+    // Bastida visual lineal (mode Quinzet Nivells 1-3) i matricial (mode Taules)
     renderScaffold(document.getElementById('num1-scaffold'), op.num1);
     renderScaffold(document.getElementById('num2-scaffold'), op.num2);
+    renderMatrixScaffold(op);
 
     // Opcions de resposta
     const optionBtns = document.querySelectorAll('.option-btn');
@@ -684,6 +940,8 @@
       index: op.index,
       num1: op.num1,
       num2: op.num2,
+      product: op.product,
+      isMissingFactor: Boolean(op.isMissingFactor),
       operator: op.operator,
       solution: op.solution,
       userAnswer: selectedValue,
@@ -718,19 +976,32 @@
     const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
     // Actualitzar panell de resultats
-    const levelCfg = LEVELS_CONFIG[state.level];
-    document.getElementById('results-level-badge').textContent = `${levelCfg.title} · ${levelCfg.name}`;
+    const resultsBadgeEl = document.getElementById('results-level-badge');
+    if (state.activityType === 'tables') {
+      const modeNames = {
+        random: 'Aleatori',
+        ordered: 'Ordenat (1 a 10)',
+        missing: 'Factor ocult'
+      };
+      resultsBadgeEl.textContent = `${formatSelectedTablesLabel(state.selectedTables, false)} · ${modeNames[state.tablesMode] || 'Aleatori'}`;
+    } else {
+      const levelCfg = LEVELS_CONFIG[state.level];
+      resultsBadgeEl.textContent = `${levelCfg.title} · ${levelCfg.name}`;
+    }
+
     document.getElementById('total-hits').textContent = `${state.hitsCount}`;
     document.getElementById('total-attempted').textContent = `${state.userAnswers.length} / ${state.totalOps}`;
     document.getElementById('total-time-spent').textContent = timeStr;
 
-    // Missatge motivador empàtic i respectuós
+    // Missatge motivador proporcional al total d'operacions de la sessió
     const motivationalEl = document.getElementById('motivational-message');
-    if (state.hitsCount >= 50) {
+    const hitRatio = state.totalOps > 0 ? (state.hitsCount / state.totalOps) : 0;
+
+    if (hitRatio >= 0.83) {
       motivationalEl.textContent = '🌟 Resultat excel·lent! Una gran rapidesa i concentració!';
-    } else if (state.hitsCount >= 30) {
+    } else if (hitRatio >= 0.50) {
       motivationalEl.textContent = '🎉 Molt bona feina! Has superat un gran nombre d\'operacions!';
-    } else if (state.hitsCount >= 15) {
+    } else if (hitRatio >= 0.25) {
       motivationalEl.textContent = '👏 Molt bon esforç! Cada dia l\'automatització és més àgil!';
     } else {
       motivationalEl.textContent = '💪 Bon treball! La pràctica constant ens ajuda a avançar!';
@@ -758,12 +1029,16 @@
       const item = document.createElement('div');
       item.className = `review-item ${ans.isCorrect ? 'is-correct' : 'is-wrong'}`;
 
+      const eqText = ans.isMissingFactor
+        ? `${ans.num1} × [${ans.solution}] = ${ans.product}`
+        : `${ans.num1} ${ans.operator} ${ans.num2} = ${ans.solution}`;
+
       item.innerHTML = `
         <div class="review-header">
           <span>Op. ${ans.index}</span>
           <span>${ans.isCorrect ? '✅ Encert' : '❌ Errada'}</span>
         </div>
-        <div class="review-eq">${ans.num1} ${ans.operator} ${ans.num2} = ${ans.solution}</div>
+        <div class="review-eq">${eqText}</div>
         <div class="review-user-ans ${ans.isCorrect ? 'correct-text' : 'wrong-text'}">
           La teva resposta: <strong>${ans.userAnswer}</strong>
         </div>
@@ -782,6 +1057,15 @@
   // BINDING D'ESDEVENIMENTS
   // ==========================================================================
   function bindEvents() {
+    // 0. Selector superior de Modalitat d'Activitat (Repte Quinzet vs Practicar Taules)
+    document.querySelectorAll('.activity-tab-btn').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const chosenActivity = tab.dataset.activity;
+        updateActivityModeUI(chosenActivity);
+        playTapSound();
+      });
+    });
+
     // 1. Selector de Nivells (Nivell 1 a Nivell 6)
     document.querySelectorAll('.level-card-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -799,16 +1083,81 @@
       });
     });
 
-    // 2. Selector de tipus d'operació
-    document.querySelectorAll('.mode-btn').forEach(btn => {
+    // 2. Selector de tipus d'operació (Mode Quinzet)
+    document.querySelectorAll('#operation-modes-container .mode-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.mode-btn').forEach(b => {
+        document.querySelectorAll('#operation-modes-container .mode-btn').forEach(b => {
           b.classList.remove('active');
           b.setAttribute('aria-checked', 'false');
         });
         btn.classList.add('active');
         btn.setAttribute('aria-checked', 'true');
         state.mode = btn.dataset.mode;
+        playTapSound();
+      });
+    });
+
+    // 2b. Configurador del Mode «Practicar Taules»
+    // Botons individuals de taula (1..10, selecció múltiple amb mínim 1 activa)
+    document.querySelectorAll('.table-num-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tableNum = parseInt(btn.dataset.table, 10);
+        const exists = state.selectedTables.includes(tableNum);
+
+        if (exists) {
+          // Garantim que sempre quedi com a mínim 1 taula seleccionada
+          if (state.selectedTables.length > 1) {
+            state.selectedTables = state.selectedTables.filter(t => t !== tableNum);
+          }
+        } else {
+          state.selectedTables.push(tableNum);
+        }
+
+        updateTablesSelectionUI();
+        playTapSound();
+      });
+    });
+
+    // Dreceres per famílies de taules
+    document.querySelectorAll('.preset-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const tablesArr = chip.dataset.tables
+          .split(',')
+          .map(n => parseInt(n.trim(), 10))
+          .filter(n => !isNaN(n));
+        if (tablesArr.length > 0) {
+          state.selectedTables = tablesArr;
+          updateTablesSelectionUI();
+          playTapSound();
+        }
+      });
+    });
+
+    // Modalitat de pràctica de taules (Aleatori | Ordenat | Factor ocult)
+    document.querySelectorAll('.tables-mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tables-mode-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-checked', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
+        state.tablesMode = btn.dataset.tmode;
+        playTapSound();
+      });
+    });
+
+    // Quantitat d'operacions en el mode Taules (10, 20, 30, 60)
+    document.querySelectorAll('.ops-count-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.ops-count-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-checked', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
+        state.tablesOpsCount = parseInt(btn.dataset.count, 10) || 20;
+        updateStartButtonLabel();
         playTapSound();
       });
     });
@@ -968,8 +1317,10 @@
     const savedTheme = localStorage.getItem('quinzet_theme_pref') || 'system';
     applyTheme(savedTheme);
     bindEvents();
-    // Inicialitzar visibilitat de modes per al Nivell 1
+    // Inicialitzar visibilitat de modes i configurador de taules
+    updateTablesSelectionUI();
     updateOperationModesForLevel(1);
+    updateActivityModeUI('quinzet');
   });
 
 })();

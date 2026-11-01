@@ -22,9 +22,16 @@ Per aquest motiu:
 
 ## ⚙️ Característiques Principals
 
-1. **Guia Docent Interactiva**:
-   * Botó destacat a la capçalera (`🎓 Guia docent`) i a la pantalla inicial que obre una finestra modal amb la taula comparativa de tots els nivells, la correspondència curricular orientativa i el detall del selector dinàmic.
-2. **Adaptabilitat i Accessibilitat NESE**:
+1. **Dues Grans Modalitats d'Activitat**:
+   * **🎯 Repte Quinzet (Nivells 1 a 6)**: Entrenament de càlcul mental global fidel a les sèries progressives del Quinzet.
+   * **✖️ Practicar Taules de Multiplicar**: Mode d'entrenament específic que permet:
+     * **Selecció a mida d'una o múltiples taules (1 al 10)** i dreceres pedagògiques per famílies (*Inicials 2·5·10*, *Dobles 2·4·8*, *Grup del 3: 3·6·9*, *Reptes 7·8·9* i *Totes*).
+     * **Tres dinàmiques d'entrenament**: **Aleatori** (sense repeticions consecutives), **Ordenat (1 a 10)** (construcció de l'escala) i **Factor ocult ($4 \times ? = 20$)** (reversibilitat cap a la divisió).
+     * **Dosificació d'operacions**: Selector de **10** (1 volta ràpida), **20**, **30** o **60** operacions.
+     * **Bastida Visual en Matriu (Files × Columnes)**: Representació d'agrupaments de punts per files per visualitzar geomètricament el producte.
+2. **Guia Docent Interactiva**:
+   * Botó destacat a la capçalera (`🎓 Guia docent`) i a la pantalla inicial que obre una finestra modal amb la taula comparativa de tots els nivells, la correspondència curricular orientativa, el detall del selector dinàmic i les pautes del mode de Taules de Multiplicar.
+3. **Adaptabilitat i Accessibilitat NESE**:
    * **Control de Pausa en Directe**: Botó de pausa (`⏸️ Pausa`) al costat del cronòmetre (també accionable amb la barra d'espai o la tecla `P`), que congela el temps i desplega una cortina de descans per atendre l'infant sense penalització de temps.
    * **Selector dinàmic d'operacions**: Els botons de multiplicar (`✖️`) i dividir (`➗`) apareixen de manera natural a partir dels nivells on són curricularment pertinents.
    * **Cronòmetre flexible**: 3 minuts per defecte (fidel a la prova Quinzet), o desactivable per treballar al propi ritme.

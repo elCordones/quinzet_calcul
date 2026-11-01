@@ -53,79 +53,210 @@
           <div class="card-intro-actions">
             <button type="button" id="open-guide-link-btn" class="btn-subtle-guide">
               <span class="guide-icon">ℹ️</span>
-              <span>Característiques dels 6 nivells i operacions</span>
+              <span>Guia docent: Nivells, Taules i Adaptacions NESE</span>
             </button>
           </div>
         </div>
 
-        <!-- 1. Selector de Nivells Progressius (Sense estigmes d'edat) -->
-        <div class="form-group">
-          <label class="group-label">1. Tria el nivell de repte:</label>
-          <div class="levels-grid" role="radiogroup" aria-label="Nivell de càlcul">
-            <button type="button" class="level-card-btn active" data-level="1" role="radio" aria-checked="true">
-              <span class="level-tag">Nivell 1</span>
-              <span class="level-name">Iniciació</span>
-              <span class="level-scope">Sumes i restes fins a 5</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="2" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 2</span>
-              <span class="level-name">Descoberta</span>
-              <span class="level-scope">Sumes i restes fins a 10</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="3" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 3</span>
-              <span class="level-name">Consolidació</span>
-              <span class="level-scope">Nombres fins a 20</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="4" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 4</span>
-              <span class="level-name">Progrés</span>
-              <span class="level-scope">Taules de multiplicar (2 a 5)</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="5" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 5</span>
-              <span class="level-name">Avançat</span>
-              <span class="level-scope">Taules completes i divisions</span>
-            </button>
-            <button type="button" class="level-card-btn" data-level="6" role="radio" aria-checked="false">
-              <span class="level-tag">Nivell 6</span>
-              <span class="level-name">Mestre</span>
-              <span class="level-scope">Càlcul àgil amb 4 operacions</span>
-            </button>
+        <!-- Selector Superior de Modalitat d'Activitat -->
+        <div class="activity-switcher" role="tablist" aria-label="Modalitat d'activitat">
+          <button type="button" class="activity-tab-btn active" data-activity="quinzet" role="tab" aria-selected="true" aria-controls="quinzet-setup-panel">
+            <span class="tab-icon" aria-hidden="true">🎯</span>
+            <div class="tab-text">
+              <span class="tab-title">Repte Quinzet</span>
+              <span class="tab-subtitle">Càlcul mental per nivells (1 a 6)</span>
+            </div>
+          </button>
+          <button type="button" class="activity-tab-btn" data-activity="tables" role="tab" aria-selected="false" aria-controls="tables-setup-panel">
+            <span class="tab-icon" aria-hidden="true">✖️</span>
+            <div class="tab-text">
+              <span class="tab-title">Practicar Taules</span>
+              <span class="tab-subtitle">Entrenament de les taules de multiplicar</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- PANELL A: CONFIGURACIÓ REPTE QUINZET (NIVELLS 1 A 6) -->
+        <div id="quinzet-setup-panel" class="activity-setup-panel">
+          <!-- 1. Selector de Nivells Progressius (Sense estigmes d'edat) -->
+          <div class="form-group">
+            <label class="group-label">1. Tria el nivell de repte:</label>
+            <div class="levels-grid" role="radiogroup" aria-label="Nivell de càlcul">
+              <button type="button" class="level-card-btn active" data-level="1" role="radio" aria-checked="true">
+                <span class="level-tag">Nivell 1</span>
+                <span class="level-name">Iniciació</span>
+                <span class="level-scope">Sumes i restes fins a 5</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="2" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 2</span>
+                <span class="level-name">Descoberta</span>
+                <span class="level-scope">Sumes i restes fins a 10</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="3" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 3</span>
+                <span class="level-name">Consolidació</span>
+                <span class="level-scope">Nombres fins a 20</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="4" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 4</span>
+                <span class="level-name">Progrés</span>
+                <span class="level-scope">Taules de multiplicar (2 a 5)</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="5" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 5</span>
+                <span class="level-name">Avançat</span>
+                <span class="level-scope">Taules completes i divisions</span>
+              </button>
+              <button type="button" class="level-card-btn" data-level="6" role="radio" aria-checked="false">
+                <span class="level-tag">Nivell 6</span>
+                <span class="level-name">Mestre</span>
+                <span class="level-scope">Càlcul àgil amb 4 operacions</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Modalitat d'operacions dinàmica segons el nivell -->
+          <div class="form-group">
+            <label class="group-label">2. Quines operacions vols fer?</label>
+            <div id="operation-modes-container" class="button-selector-grid" role="radiogroup" aria-label="Tipus d'operació">
+              <!-- Es renderitza o actualitza per JS segons el nivell -->
+              <button type="button" class="mode-btn active" data-mode="sumes" role="radio" aria-checked="true">
+                <span class="mode-symbol">➕</span>
+                <span class="mode-text">Sumes</span>
+              </button>
+              <button type="button" class="mode-btn" data-mode="restes" role="radio" aria-checked="false">
+                <span class="mode-symbol">➖</span>
+                <span class="mode-text">Restes</span>
+              </button>
+              <button type="button" class="mode-btn" data-mode="mult" role="radio" aria-checked="false" style="display: none;">
+                <span class="mode-symbol">✖️</span>
+                <span class="mode-text">Multiplicacions</span>
+              </button>
+              <button type="button" class="mode-btn" data-mode="div" role="radio" aria-checked="false" style="display: none;">
+                <span class="mode-symbol">➗</span>
+                <span class="mode-text">Divisions</span>
+              </button>
+              <button type="button" class="mode-btn" data-mode="variat" role="radio" aria-checked="false">
+                <span class="mode-symbol">🔀</span>
+                <span class="mode-text">Variat</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- 2. Modalitat d'operacions dinàmica segons el nivell -->
-        <div class="form-group">
-          <label class="group-label">2. Quines operacions vols fer?</label>
-          <div id="operation-modes-container" class="button-selector-grid" role="radiogroup" aria-label="Tipus d'operació">
-            <!-- Es renderitza o actualitza per JS segons el nivell -->
-            <button type="button" class="mode-btn active" data-mode="sumes" role="radio" aria-checked="true">
-              <span class="mode-symbol">➕</span>
-              <span class="mode-text">Sumes</span>
-            </button>
-            <button type="button" class="mode-btn" data-mode="restes" role="radio" aria-checked="false">
-              <span class="mode-symbol">➖</span>
-              <span class="mode-text">Restes</span>
-            </button>
-            <button type="button" class="mode-btn" data-mode="mult" role="radio" aria-checked="false" style="display: none;">
-              <span class="mode-symbol">✖️</span>
-              <span class="mode-text">Multiplicacions</span>
-            </button>
-            <button type="button" class="mode-btn" data-mode="div" role="radio" aria-checked="false" style="display: none;">
-              <span class="mode-symbol">➗</span>
-              <span class="mode-text">Divisions</span>
-            </button>
-            <button type="button" class="mode-btn" data-mode="variat" role="radio" aria-checked="false">
-              <span class="mode-symbol">🔀</span>
-              <span class="mode-text">Variat</span>
-            </button>
+        <!-- PANELL B: CONFIGURACIÓ PRÀCTICA DE TAULES DE MULTIPLICAR -->
+        <div id="tables-setup-panel" class="activity-setup-panel hidden">
+          <!-- 1. Selecció d'una o múltiples taules -->
+          <div class="form-group">
+            <div class="group-label-row">
+              <label class="group-label">1. Tria una o més taules de multiplicar:</label>
+              <span id="selected-tables-summary" class="selection-pill-hint">1 taula seleccionada</span>
+            </div>
+
+            <!-- Dreceres pedagògiques per famílies de taules -->
+            <div class="tables-presets-bar" aria-label="Selecció ràpida per famílies de taules">
+              <span class="presets-label">Famílies:</span>
+              <button type="button" class="preset-chip" data-tables="2,5,10">🌱 Inicials (2, 5, 10)</button>
+              <button type="button" class="preset-chip" data-tables="2,4,8">⚡ Dobles (2, 4, 8)</button>
+              <button type="button" class="preset-chip" data-tables="3,6,9">🔺 Grup del 3 (3, 6, 9)</button>
+              <button type="button" class="preset-chip" data-tables="7,8,9">🔥 Reptes (7, 8, 9)</button>
+              <button type="button" class="preset-chip" data-tables="1,2,3,4,5,6,7,8,9,10">🌟 Totes (1 a 10)</button>
+            </div>
+
+            <!-- Graella de botons de l'1 al 10 -->
+            <div class="tables-selector-grid" role="group" aria-label="Taules de l'1 al 10">
+              <button type="button" class="table-num-btn" data-table="1" aria-pressed="false">
+                <span class="table-badge">×1</span>
+                <span class="table-label">Taula de l'1</span>
+              </button>
+              <button type="button" class="table-num-btn active" data-table="2" aria-pressed="true">
+                <span class="table-badge">×2</span>
+                <span class="table-label">Taula del 2</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="3" aria-pressed="false">
+                <span class="table-badge">×3</span>
+                <span class="table-label">Taula del 3</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="4" aria-pressed="false">
+                <span class="table-badge">×4</span>
+                <span class="table-label">Taula del 4</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="5" aria-pressed="false">
+                <span class="table-badge">×5</span>
+                <span class="table-label">Taula del 5</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="6" aria-pressed="false">
+                <span class="table-badge">×6</span>
+                <span class="table-label">Taula del 6</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="7" aria-pressed="false">
+                <span class="table-badge">×7</span>
+                <span class="table-label">Taula del 7</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="8" aria-pressed="false">
+                <span class="table-badge">×8</span>
+                <span class="table-label">Taula del 8</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="9" aria-pressed="false">
+                <span class="table-badge">×9</span>
+                <span class="table-label">Taula del 9</span>
+              </button>
+              <button type="button" class="table-num-btn" data-table="10" aria-pressed="false">
+                <span class="table-badge">×10</span>
+                <span class="table-label">Taula del 10</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Modalitat de pràctica de les taules -->
+          <div class="form-group">
+            <label class="group-label">2. Com vols practicar les taules?</label>
+            <div class="button-selector-grid" role="radiogroup" aria-label="Modalitat de pràctica de taules">
+              <button type="button" class="tables-mode-btn mode-btn active" data-tmode="random" role="radio" aria-checked="true">
+                <span class="mode-symbol">🔀</span>
+                <span class="mode-text">Aleatori</span>
+                <span class="mode-subtext">Ordre barrejat per automatitzar</span>
+              </button>
+              <button type="button" class="tables-mode-btn mode-btn" data-tmode="ordered" role="radio" aria-checked="false">
+                <span class="mode-symbol">📶</span>
+                <span class="mode-text">Ordenat (1 a 10)</span>
+                <span class="mode-subtext">Seqüència pas a pas</span>
+              </button>
+              <button type="button" class="tables-mode-btn mode-btn" data-tmode="missing" role="radio" aria-checked="false">
+                <span class="mode-symbol">❓</span>
+                <span class="mode-text">Factor ocult</span>
+                <span class="mode-subtext">Reversibilitat (ex: 4 × ? = 20)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2b. Selector de quantitat d'operacions -->
+          <div class="form-group">
+            <label class="group-label">3. Quantitat d'operacions de la sessió:</label>
+            <div class="ops-count-grid" role="radiogroup" aria-label="Quantitat d'operacions">
+              <button type="button" class="ops-count-btn" data-count="10" role="radio" aria-checked="false">
+                <span class="count-num">10</span>
+                <span class="count-desc">1 volta ràpida</span>
+              </button>
+              <button type="button" class="ops-count-btn active" data-count="20" role="radio" aria-checked="true">
+                <span class="count-num">20</span>
+                <span class="count-desc">Entrenament curt</span>
+              </button>
+              <button type="button" class="ops-count-btn" data-count="30" role="radio" aria-checked="false">
+                <span class="count-num">30</span>
+                <span class="count-desc">Sessió mitjana</span>
+              </button>
+              <button type="button" class="ops-count-btn" data-count="60" role="radio" aria-checked="false">
+                <span class="count-num">60</span>
+                <span class="count-desc">Repte Quinzet</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- 3. Adaptacions de suport (Cronòmetre i Bastida visual) -->
+        <!-- Adaptacions de suport (Cronòmetre i Bastida visual) -->
         <div class="form-group">
-          <label class="group-label">3. Adaptacions de suport (NESE):</label>
+          <label id="nese-group-label" class="group-label">3. Adaptacions de suport (NESE):</label>
           <div class="switches-grid">
             <!-- Switch Cronòmetre -->
             <label class="switch-card" for="timer-toggle">
@@ -145,10 +276,10 @@
             <!-- Switch Bastida visual -->
             <label class="switch-card" for="scaffold-toggle">
               <div class="switch-info">
-                <span class="switch-icon">🔴</span>
+                <span id="scaffold-icon" class="switch-icon">🔴</span>
                 <div>
-                  <span class="switch-title">Bastida visual (Punts)</span>
-                  <span class="switch-desc">Mostra punts de subitització sota les xifres</span>
+                  <span id="scaffold-title" class="switch-title">Bastida visual (Punts)</span>
+                  <span id="scaffold-desc" class="switch-desc">Mostra punts de subitització sota les xifres</span>
                 </div>
               </div>
               <div class="switch-control">
@@ -162,7 +293,7 @@
         <!-- Botó d'inici -->
         <div class="action-footer">
           <button id="start-quiz-btn" class="btn btn-primary btn-huge" type="button">
-            <span>Començar el Repte (60 operacions)</span>
+            <span id="start-btn-label">Començar el Repte (60 operacions)</span>
             <span class="btn-arrow">➔</span>
           </button>
         </div>
@@ -183,7 +314,7 @@
             <span class="pill-icon">📝</span>
             <span class="pill-label">Op:</span>
             <strong id="current-op-index">1</strong>
-            <span class="pill-total">/ 60</span>
+            <span id="total-op-count" class="pill-total">/ 60</span>
           </div>
 
           <!-- Cronòmetre (visualitzat si està actiu) -->
@@ -234,11 +365,14 @@
               <span class="math-equal">=</span>
             </div>
 
-            <!-- Interrogant -->
+            <!-- Interrogant o Resultat (en mode Factor Ocult) -->
             <div class="number-block mystery-block">
-              <span class="mystery-box">?</span>
+              <span id="result-box" class="mystery-box">?</span>
             </div>
           </div>
+
+          <!-- Bastida Visual Matricial (Agrupaments files × columnes per a Taules de Multiplicar) -->
+          <div id="matrix-scaffold-container" class="matrix-scaffold hidden" aria-hidden="true"></div>
         </div>
 
         <!-- Àrea de selecció de les 3 respostes -->
@@ -454,6 +588,42 @@
                 • <strong>Bastida visual de punts:</strong> Disponible a nivells 1, 2 i 3 per facilitar la subitització en infants amb dificultats en el llenguatge simbòlic.<br>
                 • <strong>Cronòmetre desactivable:</strong> Permet realitzar la prova al ritme propi sense l'estrès del compte enrere de 3 minuts.<br>
                 • <strong>Neutralitat durant la tasca:</strong> Cap retroacció d'error/encert en directe per evitar el bloqueig emocional.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Secció 3: Nou Mode Practicar Taules de Multiplicar -->
+        <section class="guide-section">
+          <h3 class="guide-section-title">✖️ Mode Específic: «Practicar Taules de Multiplicar»</h3>
+          <p class="guide-section-desc">
+            Dissenyat per a l'entrenament progressiu i sense bloqueig cognitiu de les taules de l'1 al 10, tant en fase de construcció com d'automatització.
+          </p>
+          <div class="guide-cards-grid">
+            <div class="guide-info-card">
+              <h4>1. Aïllament o Famílies de Taules</h4>
+              <p>
+                Es pot seleccionar <strong>una única taula</strong> o combinar-ne diverses amb un clic mitjançant les dreceres didàctiques: <em>Inicials (2, 5, 10)</em>, <em>Dobles (2, 4, 8)</em>, <em>Grup del 3 (3, 6, 9)</em> o <em>Reptes (7, 8, 9)</em>.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>2. Tres Modalitats de Progressió</h4>
+              <p>
+                • <strong>Ordenat (1 a 10):</strong> Per construir l'escala i el comptatge per salts.<br>
+                • <strong>Aleatori:</strong> Per automatitzar la recuperació directa en memòria.<br>
+                • <strong>Factor ocult (<em>4 × ? = 20</em>):</strong> Treballa la reversibilitat i prepara el camí cap a la divisió exacta.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>3. Bastida Visual en Matriu (Files × Columnes)</h4>
+              <p>
+                En activar la <em>Bastida visual</em> dins del mode Taules, es mostra sota l'operació una <strong>matriu d'agrupaments</strong> (<em>a</em> files de <em>b</em> punts) perquè l'alumne comprengui visualment el sentit geomètric del producte.
+              </p>
+            </div>
+            <div class="guide-info-card">
+              <h4>4. Dosificació de la Sessió (10, 20, 30 o 60)</h4>
+              <p>
+                Permet ajustar la llargada de l'exercici segons la capacitat d'atenció sostinguda de l'alumne: des d'<strong>1 volta ràpida (10 operacions)</strong> fins al repte complet de <strong>60 operacions</strong>.
               </p>
             </div>
           </div>
