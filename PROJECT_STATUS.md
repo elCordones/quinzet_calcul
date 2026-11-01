@@ -16,24 +16,24 @@ Desenvolupar una aplicació web interactiva, accessible i inclusiva per a l'entr
   - **Nivell 5 (Avançat)**: Taules completes (1..10) i divisions exactes elementals *(corresponent a 4t de Primària)*.
   - **Nivell 6 (Mestre)**: Les 4 operacions combinades i càlcul àgil amb dues xifres *(corresponent a 5è i 6è de Primària)*.
 
-### 1.3 Funcionalitats Principals
-1. **Pausa i Regulació del Temps (Nova)**:
-   * Botó de pausa (`⏸️ Pausa` / `▶️ Reprendre`) disponible a la barra superior quan el cronòmetre està actiu.
-   * Capa de pausa suau que cobreix l'àrea d'operació per evitar distraccions o bloquejos emocionals, i que congela el temps amb precisió.
-   * Dreceres ràpides de pausa: barra d'espai o tecla `P`.
+### 1.3 Funcionalitats Principals Implementades
+1. **Pausa i Regulació del Temps**:
+   * Botó de pausa (`⏸️ Pausa` / `▶️ Reprendre`) a la barra superior quan el cronòmetre està actiu.
+   * Cortina de pausa suau que oculta les operacions per permetre aturar-se sense penalització temporal.
+   * Dreceres de teclat ràpides: barra d'espai o tecla `P`.
 2. **Guia Docent Accessible**:
-   * Botó d'accés ràpid a la capçalera (`🎓 Guia docent`) i enllaç discret a la targeta inicial.
-   * Finestra modal accessible amb taula comparativa de correspondències curriculars, operacions i explicació detallada del selector dinàmic.
+   * Botó destacat a la capçalera (`🎓 Guia docent`) i enllaç a la pantalla de configuració.
+   * Finestra modal accessible (`<dialog>`) amb taula comparativa dels 6 nivells, correspondència curricular i funcionament del selector dinàmic.
 3. **Configuració Inicial Adaptativa**:
-   * **Selector de 6 Nivells progressius** amb targetes visuals clares.
-   * **Selector dinàmic d'operacions**: Segons el nivell triat, es mostren les operacions pedagògicament pertinents (sumes, restes, multiplicacions, divisions o variat).
-   * **Cronòmetre flexible**: 3 minuts per defecte o opció de desactivar-lo per treballar al propi ritme.
-   * **Bastida visual (Punts)**: Activable als nivells inicials (1, 2, 3) amb safates de suport d'alçada constant i cercle buit per al $0$ per mantenir una alineació geomètrica perfecta.
-   * **Efectes de so**: Sons suaus sintetitzats via *Web Audio API* (activable / desactivable).
-   * **Tema Clar / Fosc**: S'adapta al sistema o es commuta manualment amb contrast WCAG AAA.
+   * **Selector de 6 Nivells progressius** amb targetes visuals de disseny net.
+   * **Selector dinàmic d'operacions**: Els botons de multiplicar (`✖️`) i dividir (`➗`) s'activen automàticament segons el nivell triat.
+   * **Cronòmetre flexible**: 3 minuts per defecte o desactivable per treballar al propi ritme.
+   * **Bastida visual (Punts)**: Activable als nivells inicials (1, 2, 3) amb safates de suport d'alçada constant (`38px`) i cercle buit discontinu per al $0$ per garantir una alineació geomètrica perfecta.
+   * **Efectes de so**: Síntesi suau via *Web Audio API* (activable / desactivable).
+   * **Tema Clar / Fosc**: S'adapta al sistema o es commuta manualment amb contrast d'alta llegibilitat WCAG AAA.
 4. **Dinàmica de la Prova**:
    * 60 operacions consecutives amb 3 opcions de resposta (només 1 correcta).
-   * Distractors intel·ligents calculats segons el tipus d'operació.
+   * Distractors intel·ligents calculats segons el tipus d'operació ($\pm 1$, $\pm 2$, sense negatius ni repetits).
    * **Absència de retroacció d'error/encert en directe** per evitar l'ansietat en la tasca.
    * Debouncing de 180 ms per evitar dobles tocs involuntaris en tauletes.
    * Dreceres de teclat (tecles 1, 2, 3).
@@ -46,26 +46,30 @@ Desenvolupar una aplicació web interactiva, accessible i inclusiva per a l'entr
 6. **Privacitat i Llicenciament**:
    * 100% *client-side*, sense servidors ni recollida de dades.
    * Peu de pàgina discret i compactat amb atribució docent a David Cordones (2026), codi AGPL v3 i contingut CC BY-SA 4.0.
+   * Favicon vectorial SVG personalitzat integrat.
 
 ---
 
-## 2. Estat Actual i Punt de Control (Checkpoint)
+## 2. Estat Actual i Punt de Control (Checkpoint de Tancament)
 
-- **Estat del projecte**: Codi publicat al repositori GitHub i servidor local actiu.
-- **Punt exacte**:
-  - Repositori GitHub creat i sincronitzat: `https://github.com/elCordones/quinzet_calcul`.
-  - Disseny i incorporació del **favicon vectorial SVG** (`favicon.svg`) amb la marca geomètrica de la 'Q' de Quinzet i operadors matemàtics.
-  - Generada i sincronitzada la versió `quinzet-autonom.html` amb el favicon incrustat en data-URI.
-- **Fitxers clau**:
-  - [index.html](file:///C:/Users/David/Desktop/Quinzet%20MESI/index.html): Capçalera, botó de pausa, capa de pausa, modal de guia docent, selector de nivells i resultats.
-  - [style.css](file:///C:/Users/David/Desktop/Quinzet%20MESI/style.css): Estils de la capa de pausa (`.pause-overlay`), botó de pausa d'alerta suau, bastida amb alçada uniforme i tema clar/fosc.
-  - [app.js](file:///C:/Users/David/Desktop/Quinzet%20MESI/app.js): Lògica de congelació del temps, protecció d'interacció durant la pausa i motor multinivell.
-  - [README.md](file:///C:/Users/David/Desktop/Quinzet%20MESI/README.md): Guia d'ús pedagògica actualitzada.
-  - [QUINZET.pdf](file:///C:/Users/David/Desktop/Quinzet%20MESI/QUINZET.pdf): Document original de referència.
+- **Estat del projecte**: **Finalitzat, auditat i publicat amb èxit.**
+- **Punt exacte de tancament**:
+  - Repositori GitHub creat i sincronitzat: [https://github.com/elCordones/quinzet_calcul](https://github.com/elCordones/quinzet_calcul).
+  - Desplegament web llest per a GitHub Pages: `https://elcordones.github.io/quinzet_calcul/`.
+  - Versió autònoma generada per a ús sense connexió: `quinzet-autonom.html`.
+  - Servidor de desenvolupament local aturat de manera neta.
+- **Fitxers clau del projecte**:
+  - [index.html](file:///C:/Users/David/Desktop/Quinzet%20MESI/index.html): Estructura semàntica i accessible de les 3 pantalles, modal de guia docent i favicon.
+  - [style.css](file:///C:/Users/David/Desktop/Quinzet%20MESI/style.css): Estils responsius, temes clar/fosc d'alt contrast (WCAG AAA), modal, cortina de pausa i impressió.
+  - [app.js](file:///C:/Users/David/Desktop/Quinzet%20MESI/app.js): Motor matemàtic per als 6 nivells, distractors, temporitzador amb pausa, Web Audio API i bastida visual.
+  - [favicon.svg](file:///C:/Users/David/Desktop/Quinzet%20MESI/favicon.svg): Icona vectorial amb la Q de Quinzet i operadors matemàtics.
+  - [quinzet-autonom.html](file:///C:/Users/David/Desktop/Quinzet%20MESI/quinzet-autonom.html): Fitxer únic tot en un per a ús autònom fora de línia.
+  - [README.md](file:///C:/Users/David/Desktop/Quinzet%20MESI/README.md): Guia d'ús pedagògica per al professorat.
+  - [QUINZET.pdf](file:///C:/Users/David/Desktop/Quinzet%20MESI/QUINZET.pdf): Document original de referència metodològica.
 
 ---
 
-## 3. Full de Ruta d'Implementació (Roadmap)
+## 3. Full de Ruta d'Implementació (Roadmap / Propers Passos)
 
 - [x] Fase 1: Anàlisi del mètode Quinzet i definició del marc NESE.
 - [x] Fase 2: Disseny d'interfície responsiva, tema clar/fosc i criteris d'accessibilitat.
@@ -74,5 +78,8 @@ Desenvolupar una aplicació web interactiva, accessible i inclusiva per a l'entr
 - [x] Fase 5: Motor per a les 4 operacions bàsiques (sumes, restes, multiplicacions i divisions).
 - [x] Fase 6: Panell informatiu i modal de Guia Docent per a les característiques dels nivells.
 - [x] Fase 7: Sistema de pausa i regulació temporal de la prova per a NESE.
-- [ ] Propers passos:
-  - Opcionalment permetre triar el volum d'operacions (ex. 20, 40 o 60) per a sessions molt concentrades.
+- [x] Fase 8: Disseny de Favicon SVG i publicació al repositori GitHub.
+- [ ] Propostes per a properes sessions:
+  - **Selector de quantitat d'operacions**: Permetre triar sèries de 20, 30 o 60 operacions per a alumnes amb temps d'atenció sostinguda molt breu.
+  - **Rècords personals locals**: Emmagatzematge a `localStorage` de la millor puntuació per nivell (sense dades personals) per motivar la superació pròpia.
+  - **Instal·labilitat com a PWA (Progressive Web App)**: Afegir `manifest.json` i un *Service Worker* per instal·lar-la com a aplicació d'escriptori o tauleta amb un clic.
